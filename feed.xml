@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Development using Angular</title>
+    <title>UI Development</title>
     <atom:link href="http://vamshi-krishna.com/angular/feed.xml" rel="self" type="application/rss+xml"></atom:link>
     <link>http://vamshi-krishna.com/angular</link>
-    <description>Blogs on web development using AngularJS</description>
+    <description>Blogs on web development</description>
     <pubDate>Mon, 11 Jul 2016 21:32:00 -0700</pubDate>
     <generator>Wintersmith - https://github.com/jnordberg/wintersmith</generator>
     <language>en</language>
     <item>
       <title>How to improve UI code quality in micro services architecture</title>
-      <link>http://vamshi-krishna.com/angular/angular/articles/ui-code-quality/</link>
+      <link>http://vamshi-krishna.com/angular/blog/articles/ui-code-quality/</link>
       <pubDate>Mon, 11 Jul 2016 21:32:00 -0700</pubDate>
-      <guid isPermaLink="true">http://vamshi-krishna.com/angular/angular/articles/ui-code-quality/</guid>
+      <guid isPermaLink="true">http://vamshi-krishna.com/angular/blog/articles/ui-code-quality/</guid>
       <author></author>
       <description>&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
 &lt;p&gt;The UI code consists of client side code ( Javascript , HTML, CSS). This document talks about the problems faced in UI code quality management and few suggestions on how to fix them. Being micro service archtecture adds more complexity to the issue. We need to figure out work arounds to handle these problems.&lt;/p&gt;
@@ -353,9 +353,9 @@ $ hg clone https://bitbucket.org/org/login-ui-po po
     </item>
     <item>
       <title>Project building using node</title>
-      <link>http://vamshi-krishna.com/angular/angular/articles/node-build/</link>
+      <link>http://vamshi-krishna.com/angular/blog/articles/node-build/</link>
       <pubDate>Wed, 06 Jul 2016 05:32:00 -0700</pubDate>
-      <guid isPermaLink="true">http://vamshi-krishna.com/angular/angular/articles/node-build/</guid>
+      <guid isPermaLink="true">http://vamshi-krishna.com/angular/blog/articles/node-build/</guid>
       <author></author>
       <description>&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
 &lt;p&gt;The de facto way of watching and building a UI project is by using either of grunt, gulp or rarely npm. In this blog we will see how it can be done using node alone.  &lt;/p&gt;
@@ -497,9 +497,9 @@ That is it. If we write code in our src , it automatically compiles and updates 
     </item>
     <item>
       <title>Service centric architecture in AngularJS</title>
-      <link>http://vamshi-krishna.com/angular/angular/articles/services/</link>
+      <link>http://vamshi-krishna.com/angular/blog/articles/services/</link>
       <pubDate>Sat, 04 Jun 2016 21:32:00 -0700</pubDate>
-      <guid isPermaLink="true">http://vamshi-krishna.com/angular/angular/articles/services/</guid>
+      <guid isPermaLink="true">http://vamshi-krishna.com/angular/blog/articles/services/</guid>
       <author></author>
       <description>&lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;#summary&quot;&gt;Summary&lt;/a&gt;&lt;/li&gt;
@@ -903,9 +903,9 @@ the problems with workarounds mentioned above. &lt;/p&gt;
     </item>
     <item>
       <title>Testing private functions in Angular</title>
-      <link>http://vamshi-krishna.com/angular/angular/articles/test-private/</link>
+      <link>http://vamshi-krishna.com/angular/blog/articles/test-private/</link>
       <pubDate>Wed, 04 May 2016 17:00:00 -0700</pubDate>
-      <guid isPermaLink="true">http://vamshi-krishna.com/angular/angular/articles/test-private/</guid>
+      <guid isPermaLink="true">http://vamshi-krishna.com/angular/blog/articles/test-private/</guid>
       <author></author>
       <description>&lt;blockquote&gt;
 &lt;p&gt;This is a workaround. There is no framework support.&lt;/p&gt;

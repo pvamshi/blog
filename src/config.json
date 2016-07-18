@@ -1,9 +1,9 @@
 {
   "locals": {
     "url": "http://vamshi-krishna.com/angular",
-    "name": "Development using Angular",
+    "name": "UI Development",
     "owner": "Vamshi Krishna",
-    "description": "Blogs on web development using AngularJS",
+    "description": "Blogs on web development",
     "comment_email": "pvamshi@gmail.com"
   },
   "plugins": [
@@ -18,7 +18,7 @@
     "pretty": true
   },
   "output":"..",
-  "baseUrl":"/angular",
+  "baseUrl":"/blog",
   "markdown": {
     "smartLists": true,
     "smartypants": true
