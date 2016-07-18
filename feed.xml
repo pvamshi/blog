@@ -1,0 +1,991 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Development using Angular</title>
+    <atom:link href="http://vamshi-krishna.com/angular/feed.xml" rel="self" type="application/rss+xml"></atom:link>
+    <link>http://vamshi-krishna.com/angular</link>
+    <description>Blogs on web development using AngularJS</description>
+    <pubDate>Mon, 11 Jul 2016 21:32:00 -0700</pubDate>
+    <generator>Wintersmith - https://github.com/jnordberg/wintersmith</generator>
+    <language>en</language>
+    <item>
+      <title>How to improve UI code quality in micro services architecture</title>
+      <link>http://vamshi-krishna.com/angular/angular/articles/ui-code-quality/</link>
+      <pubDate>Mon, 11 Jul 2016 21:32:00 -0700</pubDate>
+      <guid isPermaLink="true">http://vamshi-krishna.com/angular/angular/articles/ui-code-quality/</guid>
+      <author></author>
+      <description>&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;The UI code consists of client side code ( Javascript , HTML, CSS). This document talks about the problems faced in UI code quality management and few suggestions on how to fix them. Being micro service archtecture adds more complexity to the issue. We need to figure out work arounds to handle these problems.&lt;/p&gt;
+&lt;p&gt;The document is going to be in Question &amp;amp; Answer mode , where the question describes the problem being faced and the answer the solution. Sometimes the solution might create more problems, so the subsequent question might be based on the solution given to previous question. &lt;/p&gt;
+&lt;p&gt;The context of the project is going to be UI code with following frameworks and libraries: &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Angular 1+&lt;/li&gt;
+&lt;li&gt;grunt&lt;/li&gt;
+&lt;li&gt;jade &lt;/li&gt;
+&lt;li&gt;Coffeescript, javascript, ES2015 co-existing&lt;/li&gt;
+&lt;li&gt;jquery in legacy code &lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&quot;why-ui-code-quality-is-important&quot;&gt;Why UI Code quality is important&lt;/h3&gt;
+&lt;p&gt;The share of UI code in web applications has increased considerably over the past couple of years. The importance of standardizing and improving the UI Code increased accordingly. 
+Few years back there was no concern related to UI code quality, but these days it has become an important concern due to the following reasons : &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Share of UI code drastically increased over the couple of years. The logic once resided in backend is now moved to frontend.&lt;/li&gt;
+&lt;li&gt;Forgiving nature of Javascript and HTML. There are no strict rules or compiling errors which makes very difficult to find errors&lt;/li&gt;
+&lt;li&gt;Uncontrolled evolution of UI code. The language and framework are upgraded pretty fast in recent years. The code need to be well organized and well tested to be able to upgrade to newer technology.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&quot;challenges-faced-in-microservices-and-ui-code-in-general-&quot;&gt;Challenges faced in microservices ( and UI code in general )&lt;/h3&gt;
+&lt;p&gt;Microservices add more challenges to already existing challenges in UI code.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Legacy code &lt;ul&gt;
+&lt;li&gt;Different projects using different frameworks&lt;/li&gt;
+&lt;li&gt;Older code with different framework like jQuery &lt;/li&gt;
+&lt;li&gt;Different format of javascript like coffeescript&lt;/li&gt;
+&lt;li&gt;Code without test coverage&lt;/li&gt;
+&lt;li&gt;Different practices were used in early stage of Angular &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Different styles &lt;ul&gt;
+&lt;li&gt;Javascript code can be written using functional style or object oriented or procedural &lt;/li&gt;
+&lt;li&gt;Indentation preferences&lt;/li&gt;
+&lt;li&gt;Component based vs Controller based ( Angular )&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Reluctance to comply &lt;ul&gt;
+&lt;li&gt;Deciding a style is impossible. Even if it is decided getting everyone comply to the rules is another challenge&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Task deadlines &lt;ul&gt;
+&lt;li&gt;Its easy to skip best practices to reach deadlines as javascript is very forgiving &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&quot;eslint-code-quality-assurance&quot;&gt;Eslint : Code quality assurance&lt;/h3&gt;
+&lt;p&gt;Eslint gives a set of rules which can be configured. We can configure the build to fail when these rules are broken. Rules can be configured. Custom rules can be added. Rules can be configured using a configuration file .eslintrc.
+Eslint helps in &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Prevent trivial mistakes like code after return statement etc &lt;/li&gt;
+&lt;li&gt;Maintain consistency in code ( single quotes, characters limit, forcing ES2015 etc ) &lt;/li&gt;
+&lt;li&gt;Avoid antipatterns. When a bad coding practice is observed , we can write a custom rule to prevent that being written again in future&lt;/li&gt;
+&lt;li&gt;We have framework specific rules which can be applied to enforce good practices&lt;/li&gt;
+&lt;li&gt;Almost all editors have eslint plugins which gives instant feedback while developing &lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;what-is-the-problem-&quot;&gt;What is the problem ?&lt;/h2&gt;
+&lt;p&gt;We have different configuration file for each project. This causes the following problems : &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Each project will have its own rules configuration, no consistency&lt;/li&gt;
+&lt;li&gt;Adding a new rule need to be added in each project. In our case where there are two digit number of projects, its a big hastle &lt;/li&gt;
+&lt;li&gt;Few old projects use jshint , which need to be replaced with eslint &lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;solution-&quot;&gt;Solution ?&lt;/h2&gt;
+&lt;p&gt;We can have a single file shared by all projects. We have a single project which defines the rules and all other projects import from this configuration. The way to do this is by having a project hosted publicly. &lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-js&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//index.js in base-eslint-config project&lt;/span&gt;
+&lt;span class=&quot;built_in&quot;&gt;module&lt;/span&gt;.exports = {
+  &lt;span class=&quot;string&quot;&gt;'env'&lt;/span&gt;: {
+    &lt;span class=&quot;string&quot;&gt;'browser'&lt;/span&gt;: &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;,
+    &lt;span class=&quot;string&quot;&gt;'jasmine'&lt;/span&gt;: &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;,
+    &lt;span class=&quot;string&quot;&gt;'node'&lt;/span&gt;: &lt;span class=&quot;literal&quot;&gt;false&lt;/span&gt;,
+    &lt;span class=&quot;string&quot;&gt;'amd'&lt;/span&gt;: &lt;span class=&quot;literal&quot;&gt;false&lt;/span&gt;,
+    &lt;span class=&quot;string&quot;&gt;'mocha'&lt;/span&gt;: &lt;span class=&quot;literal&quot;&gt;false&lt;/span&gt;
+  },
+  &lt;span class=&quot;string&quot;&gt;'ecmaFeatures'&lt;/span&gt;: {},
+   &lt;span class=&quot;string&quot;&gt;'globals'&lt;/span&gt;: {
+    &lt;span class=&quot;string&quot;&gt;'angular'&lt;/span&gt; : &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;,
+    &lt;span class=&quot;string&quot;&gt;'moment'&lt;/span&gt; : &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;,
+     &lt;span class=&quot;comment&quot;&gt;//for tests&lt;/span&gt;
+    &lt;span class=&quot;string&quot;&gt;'inject'&lt;/span&gt; : &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;,
+    &lt;span class=&quot;string&quot;&gt;'module'&lt;/span&gt; : &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;
+  },
+  &lt;span class=&quot;string&quot;&gt;'rules'&lt;/span&gt;: {}
+  };
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This configuration can be installed into each project by &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;npm install --save https://path-to-repository
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This installs the configuration into our project. We can then use all the configurations mentioned there just by extending it. &lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-js&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//.eslintrc&lt;/span&gt;
+{
+&lt;span class=&quot;string&quot;&gt;&quot;extends&quot;&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;&quot;base-eslint-config&quot;&lt;/span&gt;,
+  &lt;span class=&quot;string&quot;&gt;&quot;plugins&quot;&lt;/span&gt;: [&lt;span class=&quot;string&quot;&gt;&quot;angular&quot;&lt;/span&gt;],
+  &lt;span class=&quot;string&quot;&gt;&quot;rules&quot;&lt;/span&gt;: {
+    &lt;span class=&quot;string&quot;&gt;&quot;no-var&quot;&lt;/span&gt;: &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;,
+    &lt;span class=&quot;string&quot;&gt;&quot;angular/di-unused&quot;&lt;/span&gt;: &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,
+    &lt;span class=&quot;string&quot;&gt;&quot;angular/no-http-callback&quot;&lt;/span&gt;: &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;We can write additional rules to either override the base project rules or add new rules&lt;/li&gt;
+&lt;li&gt;When we start using eslint, legacy code is not yet compliant. We can add rules to disable warning and keep enabling them one by one as and when we refactor the code to fix the eslint errors&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&quot;build-sharing-build-scripts&quot;&gt;Build : Sharing build scripts&lt;/h3&gt;
+&lt;p&gt;We use build scripts while developing UI code . Mostly the tasks are: &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Check for eslint errors &lt;/li&gt;
+&lt;li&gt;Transpile ES2015,coffeescript,typescript etc to plain javascript &lt;/li&gt;
+&lt;li&gt;Run unit tests &lt;/li&gt;
+&lt;li&gt;Convert jade to html &lt;/li&gt;
+&lt;li&gt;Convert sass/scss to css &lt;/li&gt;
+&lt;li&gt;Combile code in multiple files to single file&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;At present we use Grunt to manage the build tasks. Grunt tasks are maintained using Gruntfile.js .&lt;/p&gt;
+&lt;h2 id=&quot;problem-&quot;&gt;Problem ?&lt;/h2&gt;
+&lt;p&gt;Each project has its own Gruntfile. Which is very problematic for the following reason : &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Very difficult to add support for new tool ( like eslint, babel, code coverage etc., ). We need to go to each project and edit the script manually . &lt;/li&gt;
+&lt;li&gt;Inconsistent practices. Some projects have optimized scripts while older projects have slow or unfunctional scripts. Difficult to hold the project task and fix the issue. &lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;solution-&quot;&gt;Solution :&lt;/h2&gt;
+&lt;p&gt;Again, use a single grunt config and share it across. The way to do is using node app &lt;a href=&quot;https://github.com/AdesisNetlife/croak&quot;&gt;Croak&lt;/a&gt;. With croak, we can have single project with all the grunt configs enabled. Each project will have a croak config instead of Grunt and we can override the rules declared in gruntfile. &lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-js&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// example from croak documentation . &lt;/span&gt;
+&lt;span class=&quot;built_in&quot;&gt;module&lt;/span&gt;.exports = &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; (&lt;span class=&quot;params&quot;&gt;croak&lt;/span&gt;) &lt;/span&gt;{
+
+  croak.extendConfig({
+    log: {
+      foo: {},
+      bar: &lt;span class=&quot;string&quot;&gt;'hello croak'&lt;/span&gt;
+    },
+    read: {
+      files: [
+        &lt;span class=&quot;string&quot;&gt;'&amp;lt;%= croak.root %&amp;gt;/file.json'&lt;/span&gt;
+        __dirname + &lt;span class=&quot;string&quot;&gt;'/another-file.json'&lt;/span&gt;
+      ]
+    }
+  })
+
+  &lt;span class=&quot;comment&quot;&gt;// you can also register new tasks if 'register_tasks' option is enabled &lt;/span&gt;
+  croak.registerMultiTask(&lt;span class=&quot;string&quot;&gt;'log'&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;'Log stuff.'&lt;/span&gt;, &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;) &lt;/span&gt;{
+    grunt.log.writeln(&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.target + &lt;span class=&quot;string&quot;&gt;': '&lt;/span&gt; + &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.data)
+  })
+
+  croak.registerTask(&lt;span class=&quot;string&quot;&gt;'default'&lt;/span&gt;, [&lt;span class=&quot;string&quot;&gt;'log'&lt;/span&gt;])
+
+  }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&quot;using-node-instead-of-grunt-gulp-&quot;&gt;Using node (instead of Grunt/Gulp)&lt;/h2&gt;
+&lt;p&gt;We can write our own script custom build for our requirements. These are few node apps which can be used : &lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Purpose&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Node app&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Watching file changes&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;chokidar&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Transpile ES2015&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;babel&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Transpile coffeescript&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;coffee-script&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;jade/pug&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;jade&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;file read/write&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;shelljs&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;minify&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;uglify-js&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;A simple build script looks like this : &lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-js&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//build.js&lt;/span&gt;
+&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; watch = &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'chokidar'&lt;/span&gt;).watch;
+&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; babel = &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'babel-core'&lt;/span&gt;);
+&lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'shelljs/global'&lt;/span&gt;);
+&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; presets = {
+  presets: [ &lt;span class=&quot;string&quot;&gt;'es2015'&lt;/span&gt;]
+};
+
+watch(&lt;span class=&quot;string&quot;&gt;'./src/js/**/*.js'&lt;/span&gt;)
+  .on(&lt;span class=&quot;string&quot;&gt;'add'&lt;/span&gt;, (path) =&amp;gt; {
+    mkdir(&lt;span class=&quot;string&quot;&gt;'-p'&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;'./temp'&lt;/span&gt;+path);
+    transpileToEs5(cat(path)).to(destinyFile);
+  })
+  .on(&lt;span class=&quot;string&quot;&gt;'change'&lt;/span&gt;, (path)=&amp;gt; {
+    mkdir(&lt;span class=&quot;string&quot;&gt;'-p'&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;'./temp'&lt;/span&gt;+path);
+    transpileToEs5(cat(path)).to(destinyFile);
+  });
+
+&lt;span class=&quot;string&quot;&gt;''&lt;/span&gt;.to(&lt;span class=&quot;string&quot;&gt;'./build/site.js'&lt;/span&gt;); &lt;span class=&quot;comment&quot;&gt;//empty the file everytime the build is run&lt;/span&gt;
+
+watch(&lt;span class=&quot;string&quot;&gt;'./temp/**/*.js'&lt;/span&gt;)
+  .on(&lt;span class=&quot;string&quot;&gt;'add'&lt;/span&gt;, (path) =&amp;gt; {
+    cat(path).toEnd(&lt;span class=&quot;string&quot;&gt;'./build/site.js'&lt;/span&gt;); &lt;span class=&quot;comment&quot;&gt;//append to the end of the file &lt;/span&gt;
+  })
+  .on(&lt;span class=&quot;string&quot;&gt;'change'&lt;/span&gt;, () =&amp;gt; {
+    cat(&lt;span class=&quot;string&quot;&gt;'./temp/**/*.js'&lt;/span&gt;).to(&lt;span class=&quot;string&quot;&gt;'./build/site.js'&lt;/span&gt;); &lt;span class=&quot;comment&quot;&gt;//override whole file&lt;/span&gt;
+  });
+
+&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;transpileToEs5&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;code&lt;/span&gt;)&lt;/span&gt;{
+  &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; babel.transform(code, presets);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This script can be imported to all projects by using exports/imports.Different paths and other variables can be injected through a config file. This way , when we want to add a new feature, we just need to add that to this script and we have the feature available to all projects. &lt;/p&gt;
+&lt;h3 id=&quot;testing-and-code-coverage-&quot;&gt;Testing ( and Code coverage )&lt;/h3&gt;
+&lt;p&gt;Words cannot describe the importance of testing in quality assurance. We have two types of testing : &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Unit testing using Angular and Jasmine&lt;/li&gt;
+&lt;li&gt;e2e testing using Protractor and Jasmine&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;unit-testing&quot;&gt;Unit testing&lt;/h2&gt;
+&lt;p&gt;Unit testing is testing a given function or module by mocking all other interactions. If the module calls another service or module, we mock the response of that module so that we are concerned only about the code we are testing. Unit tests are very light due to mock data and are thus very easy to run. Most of the cases every change in our code is accompanied by running all the related unit tests to make sure no other functionality broke. &lt;/p&gt;
+&lt;p&gt;We use karma for testing jasmine tests. The Gruntfile has related entry : &lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-js&quot;&gt;{
+        options: {
+          files: [
+            &lt;span class=&quot;string&quot;&gt;'&amp;lt;%= test_files.vendor %&amp;gt;'&lt;/span&gt;,
+            &lt;span class=&quot;string&quot;&gt;'&amp;lt;%= vendor_files.js %&amp;gt;'&lt;/span&gt;,
+            &lt;span class=&quot;string&quot;&gt;'&amp;lt;%= app_files.js %&amp;gt;'&lt;/span&gt;,
+            &lt;span class=&quot;string&quot;&gt;'&amp;lt;%= test_files.js %&amp;gt;'&lt;/span&gt;
+          ],
+          browsers: [&lt;span class=&quot;string&quot;&gt;'PhantomJS'&lt;/span&gt;],
+          logLevel: &lt;span class=&quot;string&quot;&gt;'DEBUG'&lt;/span&gt;,
+          frameworks: [&lt;span class=&quot;string&quot;&gt;'jasmine'&lt;/span&gt;],
+          preprocessors: {
+            &lt;span class=&quot;string&quot;&gt;'src/**/*.js'&lt;/span&gt;: [&lt;span class=&quot;string&quot;&gt;'babel'&lt;/span&gt;],
+            &lt;span class=&quot;string&quot;&gt;'src/**/!(*.spec|*.mock)*.js'&lt;/span&gt;: [&lt;span class=&quot;string&quot;&gt;'coverage'&lt;/span&gt;]
+          },
+          coverageReporter : {
+            reporters:[
+              {type: &lt;span class=&quot;string&quot;&gt;'html'&lt;/span&gt;, dir:&lt;span class=&quot;string&quot;&gt;'build/coverage/'&lt;/span&gt;, subdir: &lt;span class=&quot;string&quot;&gt;'.'&lt;/span&gt;},
+              {type: &lt;span class=&quot;string&quot;&gt;'text-summary'&lt;/span&gt;}
+            ]
+          },
+        },
+        unit: {
+          runnerPort: &lt;span class=&quot;number&quot;&gt;9101&lt;/span&gt;,
+          port: &lt;span class=&quot;number&quot;&gt;9103&lt;/span&gt;,
+          background: &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;
+        },
+        continuous: {
+          singleRun: &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;
+        }
+      }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Code coverage : Code coverage is a metrics which shows what percentage of code is handled in unit tests. It even calculates the coverage in conditional branches. &lt;/p&gt;
+&lt;p&gt;The entry &lt;code&gt;coverateReporter&lt;/code&gt; in the above script validates the unit tests and generates html files which give detailed information on total code coverage . It shows code coverage at each line level. We can have build configured in teamcity,travis-ci etc to read these docs and break build if total code coverage percentage is lesser than previous build. &lt;/p&gt;
+&lt;h2 id=&quot;e2e-testing&quot;&gt;e2e testing&lt;/h2&gt;
+&lt;p&gt;e2e ( End to End ) testing is automating real actions . We do not mock any data . Its as if a human opens the url in browser, inputs data and checks the page is behaving as expected. 
+The page does the network call to fetch data and everything is realtime. For this reason, e2e is very expensive operation. We have data and network overhead. Its slow and resource intensive. But as it is not a simulation but real job automated , its very valuable. We check the e2e tests only when we are ready to push the code unlike unit tests which are checked after each change . &lt;/p&gt;
+&lt;p&gt;The general convetion for e2e tests are to have &lt;code&gt;po&lt;/code&gt; objects(files) and spec files.&lt;code&gt;po&lt;/code&gt; files contains objects which have information on different pages of the webapp like url, fields, navigation details etc., &lt;code&gt;spec&lt;/code&gt; files interact with &lt;code&gt;po&lt;/code&gt; files to get info and execute tests. &lt;/p&gt;
+&lt;p&gt;Example: &lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-js&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//login-ui po &lt;/span&gt;
+&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; LoginPage = &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;) &lt;/span&gt;{
+  &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; userName = element(by.id(&lt;span class=&quot;string&quot;&gt;'userName'&lt;/span&gt;));
+  &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; passWord = element(by.id(&lt;span class=&quot;string&quot;&gt;'password'&lt;/span&gt;));
+  &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; signInBtn = element(by.id(&lt;span class=&quot;string&quot;&gt;'sign-in'&lt;/span&gt;));
+
+  &lt;span class=&quot;comment&quot;&gt;// url of Kareo&lt;/span&gt;
+  &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.getURL = &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;) &lt;/span&gt;{
+    browser.get(&lt;span class=&quot;string&quot;&gt;'...'&lt;/span&gt;); &lt;span class=&quot;comment&quot;&gt;//fill in url &lt;/span&gt;
+  };
+
+  &lt;span class=&quot;comment&quot;&gt;// set username&lt;/span&gt;
+  &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.setUserName = &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;username&lt;/span&gt;) &lt;/span&gt;{
+    userName.sendKeys(username);
+  };
+
+  &lt;span class=&quot;comment&quot;&gt;// set password&lt;/span&gt;
+  &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.setPassWord = &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;password&lt;/span&gt;) &lt;/span&gt;{
+    passWord.sendKeys(password);
+  };
+
+  &lt;span class=&quot;comment&quot;&gt;// click sign in button&lt;/span&gt;
+  &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.clickSignIn = &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;) &lt;/span&gt;{
+      signInBtn.click();
+  };
+
+  &lt;span class=&quot;comment&quot;&gt;// get title of the browser&lt;/span&gt;
+  &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.browserTitle = &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;) &lt;/span&gt;{
+      &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; browser.getTitle();
+  };
+
+};
+
+&lt;span class=&quot;built_in&quot;&gt;module&lt;/span&gt;.exports = LoginPage;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-js&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//spec.js&lt;/span&gt;
+
+&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; LoginPage = &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'../po/login-page.po'&lt;/span&gt;);
+describe(&lt;span class=&quot;string&quot;&gt;'login page'&lt;/span&gt;, &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;) &lt;/span&gt;{
+  it(&lt;span class=&quot;string&quot;&gt;'Login to Kareo'&lt;/span&gt;, &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;) &lt;/span&gt;{
+    &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; loginPage = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; LoginPage();
+    loginPage.getURL();
+        expect(loginPage.browserTitle()).toEqual(&lt;span class=&quot;string&quot;&gt;'Login | Kareo'&lt;/span&gt;);
+
+    loginPage.setUserName(&lt;span class=&quot;string&quot;&gt;'..'&lt;/span&gt;); &lt;span class=&quot;comment&quot;&gt;//fill in user id &lt;/span&gt;
+    loginPage.setPassWord(&lt;span class=&quot;string&quot;&gt;'...'&lt;/span&gt;); &lt;span class=&quot;comment&quot;&gt;//fill in password&lt;/span&gt;
+    loginPage.clickSignIn();
+        &lt;span class=&quot;comment&quot;&gt;// verify search Text box after login &lt;/span&gt;
+  });
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&quot;problem-&quot;&gt;Problem :&lt;/h2&gt;
+&lt;p&gt;Every project need to use login PO to login into the app before navigating to their project. Similarly there are many other PO objects which need to be shared across the projects. 
+As all projects are private repositories , we can not share the code as we did earlier. &lt;/p&gt;
+&lt;h2 id=&quot;solution-&quot;&gt;Solution :&lt;/h2&gt;
+&lt;p&gt;The probable solution for this is to have PO objects added to a subrepo. We are using hg (mercurial) so the code snippet will be for mercurial. 
+Create a new repository for login-po , lets assume it is &lt;a href=&quot;https://bitbucket.org/org/login-ui-po&quot;&gt;https://bitbucket.org/org/login-ui-po&lt;/a&gt; 
+We perform the following in our login-ui project. &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ cd login-ui 
+$ echo &amp;#39;test/po = https://bitbucket.org/org/login-ui-po&amp;#39; &amp;gt; .hgsub
+$ hg add .hgsub
+$ hg commit -m &amp;quot;Adding subrepo&amp;quot; 
+$ cd test
+$ hg clone https://bitbucket.org/org/login-ui-po po
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;We are adding a subrepo to our login-ui by adding the info in the file &lt;code&gt;.hgsub&lt;/code&gt;. We need to provide info in the form of &lt;/p&gt;
+&lt;p&gt;&amp;lt;destination folder&amp;gt; = &amp;lt;repository url&amp;gt;&lt;/p&gt;
+&lt;p&gt;Then we clone the repository in the correct path. Now we can clone login-ui-po into all projects which need login-ui &lt;code&gt;po&lt;/code&gt; objects. Adding code to &lt;code&gt;login-ui-po&lt;/code&gt; will be reflected in all projects which are using it . When we perform pull for our project, the subrepo will also get updated . This way we are linking po objects in multiple projects when and where they are needed without changing any other build process or structure. &lt;/p&gt;
+</description>
+    </item>
+    <item>
+      <title>Project building using node</title>
+      <link>http://vamshi-krishna.com/angular/angular/articles/node-build/</link>
+      <pubDate>Wed, 06 Jul 2016 05:32:00 -0700</pubDate>
+      <guid isPermaLink="true">http://vamshi-krishna.com/angular/angular/articles/node-build/</guid>
+      <author></author>
+      <description>&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;The de facto way of watching and building a UI project is by using either of grunt, gulp or rarely npm. In this blog we will see how it can be done using node alone.  &lt;/p&gt;
+&lt;h3 id=&quot;general-idea&quot;&gt;General Idea&lt;/h3&gt;
+&lt;p&gt;We will be using node apps to perform these actions. Depending on grunt ( I will be talking mostly about grunt as that is what being used in our project) might look simpler but writing our own script is easier to debug, maintain and scale over long run. The tasks we perform are going to be watch filesystem for changes and perform an action when there is a change. &lt;/p&gt;
+&lt;h3 id=&quot;start&quot;&gt;Start&lt;/h3&gt;
+&lt;p&gt;Lets start the project from scratch. We can use existing project as well. The structure is going to be like : &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;└── test
+    ├── build
+    │   ├── index.html
+    │   ├── site.css
+    │   └── site.js
+    ├── node_modules
+    ├── package.json
+    ├── src
+    │   ├── css
+    │   ├── index.html
+    │   └── js
+    └── temp
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;src&lt;/code&gt; is where the source code is going to saved. &lt;code&gt;build&lt;/code&gt; is for final build where all the javascript is loaded to single javascript file and all the css( sass comipled) in a single css.  We will be having all our javascript in ES6 ( can be typescript or coffeescript or other format too )  .
+&lt;code&gt;temp&lt;/code&gt; folder is where we store the compiled files ( js or css). &lt;/p&gt;
+&lt;p&gt;The steps are as follows :&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-shell&quot;&gt;$ mkdir test 
+$ cd test
+$ npm init
+$ mkdir src build temp src/js src/css
+# touch src/index.html
+#
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;When we run &lt;code&gt;npm init&lt;/code&gt; the &lt;code&gt;package.json&lt;/code&gt; file gets created after asking few basic questions. 
+With this we have the basic file system ready.&lt;/p&gt;
+&lt;h3 id=&quot;watch&quot;&gt;Watch&lt;/h3&gt;
+&lt;p&gt;To watch the file system for changes we use the package called &lt;a href=&quot;https://github.com/paulmillr/chokidar&quot;&gt;Chokidar&lt;/a&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-shell&quot;&gt;$ npm install --save chokidar
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This adds a dependency in &lt;code&gt;package.json&lt;/code&gt; along with installing it into &lt;code&gt;node_modules&lt;/code&gt;. 
+Create a build script to run our app. Lets call it &lt;code&gt;index.js&lt;/code&gt; . &lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-shell&quot;&gt;$touch index.js
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We can start using chokidar to watch files. &lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// index.js&lt;/span&gt;
+&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; chokidar = &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'chokidar'&lt;/span&gt;);
+
+chokidar.watch(&lt;span class=&quot;string&quot;&gt;'./src/js/**/*.js'&lt;/span&gt;)
+  .on(&lt;span class=&quot;string&quot;&gt;'add'&lt;/span&gt;,(path) =&amp;gt; {
+    &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;string&quot;&gt;'file added to watch '&lt;/span&gt;+path);
+    })
+  .on(&lt;span class=&quot;string&quot;&gt;'change'&lt;/span&gt;, (path)=&amp;gt; {
+    &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;string&quot;&gt;'file changed '&lt;/span&gt;+path);
+  });
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;With this tiny code we have established a watcher on our file system. &lt;code&gt;**/*.js&lt;/code&gt; matches all the files which end with .js in the particular file system ( /src/js in our case) . As we will not be using any other function of chokidar we can simplify the require statement a little : &lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; watch = &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'chokidar'&lt;/span&gt;).watch;
+
+watch(&lt;span class=&quot;string&quot;&gt;'./src/js/**/*.js'&lt;/span&gt;)
+  .on(&lt;span class=&quot;string&quot;&gt;'add'&lt;/span&gt;,(path) =&amp;gt; {
+  ...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&quot;read-write-to-files&quot;&gt;Read Write to files&lt;/h3&gt;
+&lt;p&gt;We can use default node apps to read and write to file system. But I found &lt;a href=&quot;https://github.com/shelljs/shelljs&quot;&gt;shelljs&lt;/a&gt; much easier to work with. With shelljs, the code is going to look exactly like shell but with functions instead of commands. Shelljs gives almost all important shell commands like cat, mkdir, echo etc ., 
+Two ways to use shelljs , if we import shelljs/global we can directly access all the shell command ( cat(file)) otherwise we need to call it with a variable (shell.cat(file)). I liked the global format so will go with it. &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ npm install shelljs --save
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;update the index.js&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-js&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//index.js&lt;/span&gt;
+&lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'shelljs/global'&lt;/span&gt;)
+echo(&lt;span class=&quot;string&quot;&gt;'echo test'&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This should print the text to console . This is just to test if its working fine. &lt;/p&gt;
+&lt;h3 id=&quot;transpiler-for-es6&quot;&gt;Transpiler for ES6&lt;/h3&gt;
+&lt;p&gt;Assuming we will be writing our web app in ES6, we need to transpile the code to ES5. Lets use &lt;a href=&quot;http://vamshi-krishna.com/angular/articles/node-build/babeljs.io&quot;&gt;babeljs&lt;/a&gt; for this task. &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ npm install --save babel babel-preset-es2015
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Lets convert some javascript from ES2015 to javscript 5&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-js&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//index.js&lt;/span&gt;
+&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; babel = &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'babel-core'&lt;/span&gt;);
+&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; presets = {
+  presets: [ &lt;span class=&quot;string&quot;&gt;'es2015'&lt;/span&gt;]
+};
+&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;transpileToEs5&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;code&lt;/span&gt;)&lt;/span&gt;{
+  &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; babel.transform(code, presets);
+}
+echo(transpileToEs5(&lt;span class=&quot;string&quot;&gt;`let a = 5;`&lt;/span&gt;));
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This should output &lt;code&gt;var a = 5;&lt;/code&gt; to the output. &lt;/p&gt;
+&lt;h3 id=&quot;final-code&quot;&gt;Final code&lt;/h3&gt;
+&lt;p&gt;Lets combine all these to final code. &lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-js&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//index.js&lt;/span&gt;
+
+&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; watch = &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'chokidar'&lt;/span&gt;).watch;
+&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; babel = &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'babel-core'&lt;/span&gt;);
+&lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'shelljs/global'&lt;/span&gt;);
+&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; presets = {
+  presets: [ &lt;span class=&quot;string&quot;&gt;'es2015'&lt;/span&gt;]
+};
+
+watch(&lt;span class=&quot;string&quot;&gt;'./src/js/**/*.js'&lt;/span&gt;)
+  .on(&lt;span class=&quot;string&quot;&gt;'add'&lt;/span&gt;, (path) =&amp;gt; {
+    &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;string&quot;&gt;'file added to watch '&lt;/span&gt;+path);
+    &lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; code = cat(path);
+    &lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; es5Code = transpileToEs5(code);
+    &lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; destinyFile = &lt;span class=&quot;string&quot;&gt;'./temp'&lt;/span&gt;+path;
+    mkdir(&lt;span class=&quot;string&quot;&gt;'-p'&lt;/span&gt;, destinyFile);
+    es5Code.to(destinyFile);
+  })
+  .on(&lt;span class=&quot;string&quot;&gt;'change'&lt;/span&gt;, (path)=&amp;gt; {
+    &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;string&quot;&gt;'file changed '&lt;/span&gt;+path);
+    &lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; code = cat(path);
+    &lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; es5Code = transpileToEs5(code);
+    &lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; destinyFile = &lt;span class=&quot;string&quot;&gt;'./temp'&lt;/span&gt;+path;
+    es5Code.to(destinyFile);
+  });
+
+&lt;span class=&quot;string&quot;&gt;''&lt;/span&gt;.to(&lt;span class=&quot;string&quot;&gt;'./build/site.js'&lt;/span&gt;); &lt;span class=&quot;comment&quot;&gt;//empty the file everytime the build is run&lt;/span&gt;
+
+watch(&lt;span class=&quot;string&quot;&gt;'./temp/**/*.js'&lt;/span&gt;)
+  .on(&lt;span class=&quot;string&quot;&gt;'add'&lt;/span&gt;, (path) =&amp;gt; {
+    cat(path).toEnd(&lt;span class=&quot;string&quot;&gt;'./build/site.js'&lt;/span&gt;); &lt;span class=&quot;comment&quot;&gt;//append to the end of the file &lt;/span&gt;
+  })
+  .on(&lt;span class=&quot;string&quot;&gt;'change'&lt;/span&gt;, () =&amp;gt; {
+    cat(&lt;span class=&quot;string&quot;&gt;'./temp/**/*.js'&lt;/span&gt;).to(&lt;span class=&quot;string&quot;&gt;'./build/site.js'&lt;/span&gt;); &lt;span class=&quot;comment&quot;&gt;//override whole file&lt;/span&gt;
+  });
+
+&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;transpileToEs5&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;code&lt;/span&gt;)&lt;/span&gt;{
+  &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; babel.transform(code, presets);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Here we are watching on &lt;code&gt;src&lt;/code&gt; and &lt;code&gt;temp&lt;/code&gt;. Whevever there is a change in src, we compile and copy to temp. Whenever there is change or new file added to temp directory, we copy whole of temp again to site.js. 
+This is very basic code which can be further optimized a lot but left as is to make it easy to understand. 
+We can add more watchers and more logic in each watch. 
+That is it. If we write code in our src , it automatically compiles and updates site.js. &lt;/p&gt;
+&lt;h3 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h3&gt;
+&lt;p&gt;As we can see its very easy to write our own build code. It is very extensible, when we need to add more features , we just add new dependency and add another function in our code. Here are the advantages of using this instead of grunt or gulp: &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Add or remove features easily&lt;/li&gt;
+&lt;li&gt;Add customized features easily as its plain javascript code&lt;/li&gt;
+&lt;li&gt;If we are dealing with micro services or multiple projects, We can add a config file and decide which ones to enable and disable for each project. All the projects can use the same script and its easy to impose rules or overwrite rules&lt;/li&gt;
+&lt;li&gt;Convert this to a module and share across teams&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    <item>
+      <title>Service centric architecture in AngularJS</title>
+      <link>http://vamshi-krishna.com/angular/angular/articles/services/</link>
+      <pubDate>Sat, 04 Jun 2016 21:32:00 -0700</pubDate>
+      <guid isPermaLink="true">http://vamshi-krishna.com/angular/angular/articles/services/</guid>
+      <author></author>
+      <description>&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#summary&quot;&gt;Summary&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#general-idea&quot;&gt;General Idea&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#service-as-data-containers&quot;&gt;Service as Data containers&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#immutable-data&quot;&gt;Immutable Data&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#solutions&quot;&gt;Solutions&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#advantages&quot;&gt;Advantages&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#solution-1-observer-pattern&quot;&gt;Solution 1: Observer Pattern&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#advantages-solution-1-&quot;&gt;Advantages&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#problems-solution-1-&quot;&gt;problems&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#solution-2-data-centric-services&quot;&gt;Solution 2: Data centric services&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#advantages-solution-2-&quot;&gt;Advantages&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#problems-solution-2-&quot;&gt;problems&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#conclusion-&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&quot;summary&quot;&gt;Summary&lt;/h3&gt;
+&lt;p&gt;This article is an arguement on merits and demerits of using service as the data  container and letting controller call service for all its data needs. It tries to decrease the amount of code written in controllers and shift that to services. We store data in service in two ways :&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Store data in service, copy required data to controller. Add watcher/observer in controller to update data.&lt;/li&gt;
+&lt;li&gt;Store data in service and directly use service methods to access data in views&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;We discuss the problems faced in each and try to fix them.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;In all practical cases AngularJS code mostly resides in controllers. Controllers are heavily monitored and pampered by the framework, which makes it heavy and bloated. By literally living in controller all the time we are multiplying the problems.&lt;/p&gt;
+&lt;p&gt;The scope of this article is entirely to AngularJS 1 (1.5+ to be precise) .&lt;/p&gt;
+&lt;h3 id=&quot;general-idea&quot;&gt;General Idea&lt;/h3&gt;
+&lt;h4 id=&quot;service-as-data-containers&quot;&gt;Service as Data containers&lt;/h4&gt;
+&lt;p&gt;The data flow in AngularJS is as follows :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Controller asks service to give data&lt;/li&gt;
+&lt;li&gt;Service does a HTTP call and return the promise to Controller&lt;/li&gt;
+&lt;li&gt;Controller waits till promise is resolved and adds returned data to scope&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Essentially the data is transfered from backend to scope, service just acts as a medium of transfer.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/8soKsIO.png&quot; alt=&quot;Data transfer in AngularJS&quot;&gt;&lt;/p&gt;
+&lt;p&gt;We are trying to stop the data in the service itself and make controller access the data from the service whenever it needs.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/0fArCPA.png&quot; alt=&quot;Data transfer in AngularJS&quot;&gt;&lt;/p&gt;
+&lt;h4 id=&quot;immutable-data&quot;&gt;Immutable data&lt;/h4&gt;
+&lt;p&gt;The data stored in service is made immutable by the controllers. In other words controllers have read-only access. This way the data stays consistent and several controllers can use it. Controllers shall consume the service data and transform it according to their &lt;code&gt;View&lt;/code&gt; needs.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/aaYXtDJ.png&quot; alt=&quot;Data transfer in AngularJS&quot;&gt;&lt;/p&gt;
+&lt;p&gt;When the service data needs to be updated (for instance a new record is added or existing record is updated), controllers can send request to the service and service can update the data itself. Other controllers can update their data accordingly.&lt;/p&gt;
+&lt;h4 id=&quot;solutions&quot;&gt;Solutions&lt;/h4&gt;
+&lt;p&gt;In this article we are discussing two ways of achieving the above.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;First one is to copy a part or transformed part or whole of the data in the controller. This is as described in the above images. This poses a problem that controller is not aware when service changes the  data. We will discuss it further in &lt;a href=&quot;#solution-1-observer-pattern&quot;&gt;detail&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Second one is to directly access the service data by creating a reference of the service in the controller&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/Ye1vNs6.png&quot; alt=&quot;Data transfer in AngularJS&quot;&gt;&lt;/p&gt;
+&lt;h3 id=&quot;advantages&quot;&gt;Advantages&lt;/h3&gt;
+&lt;p&gt;Lets few advantages generic to both ways of achieving this. &lt;/p&gt;
+&lt;h4 id=&quot;service-is-singleton&quot;&gt;Service is singleton&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Service being singleton gets initialized only once, so are the network calls and other logic.&lt;/li&gt;
+&lt;li&gt;Controller gets executed everytime the view is rendered, so are the HTTP calls and data transformations.&lt;/li&gt;
+&lt;li&gt;Pushing more code into service optimizes the amount of HTTP calls and the logic we do in it. It happens only once per app.&lt;/li&gt;
+&lt;li&gt;If needed we can do further calls or more logic as and when needed. We get more controll on how frequent we make the calls&lt;/li&gt;
+&lt;li&gt;If multiple components used in the view or the same component used in
+  &lt;code&gt;ng-repeat&lt;/code&gt; having the logic and memory in controller makes the app
+  sluggish. By pushing the logic and data to service, we are making
+  components very light and more freedom to modularize the code&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We use the following page to demonstrate. Each city has a link to open new view. Thus it has new controller which fetches weather info from internet. Observe the network calls made. Click on a city twice by going to different city and coming back.We can observe the same data fetched by another unnecessary network call. If we move that logic to service, we will save all these network calls.&lt;/p&gt;
+&lt;iframe style=&quot;width: 100%; height: 200px&quot; src=&quot;http://embed.plnkr.co/C6NOvo&quot; frameborder=&quot;0&quot; allowfullscren=&quot;allowfullscren&quot;&gt;&lt;/iframe&gt;
+
+&lt;h4 id=&quot;service-is-reusable&quot;&gt;Service is reusable&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;We can easily inject Service into other services or controllers&lt;/li&gt;
+&lt;li&gt;Controller is confined only for its view&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;testing-is-easier-in-service&quot;&gt;Testing is easier in Service&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Simple functions, straight forward to test&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Enforce pure functions and test without any HTTP mocks&lt;/p&gt;
+&lt;iframe style=&quot;width: 100%; height: 330px&quot; src=&quot;http://embed.plnkr.co/LDH0yT&quot; frameborder=&quot;0&quot; allowfullscren=&quot;allowfullscren&quot;&gt;&lt;/iframe&gt;
+
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In the above example we could easily test the &lt;code&gt;extractWeather&lt;/code&gt; function without needing to mock the http and handle promises. The utility function could be tested easily.&lt;/p&gt;
+&lt;h4 id=&quot;more-modular-code&quot;&gt;More modular code&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Moving data and logic to service makes controller empty. Easier to break it into more simpler components&lt;/li&gt;
+&lt;li&gt;Otherwise, if we write code in components controller we face challenges like :&lt;ul&gt;
+&lt;li&gt;Sharing data from parent to child controller/component&lt;/li&gt;
+&lt;li&gt;When one component or controller updates the data, it needs to inform other
+  component . For this we need to rely on &lt;code&gt;$emit&lt;/code&gt; and we are opening a new
+  can of problems&lt;/li&gt;
+&lt;li&gt;The same code is repeated in multiple components which can be moved to
+  service.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;solution-1-observer-pattern&quot;&gt;Solution 1 : Observer Pattern&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Service contains the data with CRUD functions&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//file : model-service.js&lt;/span&gt;
+&lt;span class=&quot;comment&quot;&gt;//ModelService code&lt;/span&gt;
+
+&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; models = [];
+&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;addModel&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;model&lt;/span&gt;) &lt;/span&gt;{
+  models.push(model);
+}
+
+&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;getModel&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;idx&lt;/span&gt;)&lt;/span&gt;{
+  &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; models[idx];
+}
+
+&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;getAllModels&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;{
+  &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; models;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Service provides functionality to let controllers register for a model change&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//file : model-service.js&lt;/span&gt;
+&lt;span class=&quot;comment&quot;&gt;//ModelService code&lt;/span&gt;
+self.observers = {
+  add: [],
+  update: []
+};
+
+&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;addModel&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;model&lt;/span&gt;) &lt;/span&gt;{
+  &lt;span class=&quot;comment&quot;&gt;//http call to create&lt;/span&gt;
+  &lt;span class=&quot;comment&quot;&gt;//on success do the following&lt;/span&gt;
+  models.push(model);
+  self.observers.add.forEach(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;createObserver&lt;/span&gt;) &lt;/span&gt;{
+    createObserver(model);
+  });
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;All controllers interested to update the view based on data present in the service, register with the service to notify them when the model is added or updated&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//controller code&lt;/span&gt;
+&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; vm = &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;;
+ vm.models = []; &lt;span class=&quot;comment&quot;&gt;//or $scope.models = [];&lt;/span&gt;
+
+ ModelService.observers.add.push(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;addedModel&lt;/span&gt;)&lt;/span&gt;{
+   vm.models.push(addedModel);
+ });
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&quot;advantages-solution-1-&quot;&gt;Advantages (Solution 1 )&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;All model related data resides in the service&lt;/li&gt;
+&lt;li&gt;Multiple controllers can register with the service and as soon as one of the controller modifies data, other controllers can update their view&lt;/li&gt;
+&lt;li&gt;Using observer pattern makes it very light&lt;/li&gt;
+&lt;li&gt;We can decide which functions need to be observed and updated&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;problems-solution-1-&quot;&gt;Problems (Solution 1)&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;Problem 1:&lt;/strong&gt; Lots of boilerplate code. We need to add lot of code in each service. Observers for each method etc.,&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;:
+ We can move all the boilerplate code to a single service and inject it to all the services. We can fetch the functions list and code to be executed after each function execution. In the following code we are appending post-execution code which will get appended to each function by default. &lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;
+&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;abc&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;a, b, c&lt;/span&gt;) &lt;/span&gt;{
+  &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; a + b + c;
+}
+
+abc = (&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;func, postexec&lt;/span&gt;) &lt;/span&gt;{
+  &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;) &lt;/span&gt;{
+    &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; re = func.apply(service, &lt;span class=&quot;built_in&quot;&gt;arguments&lt;/span&gt;); &lt;span class=&quot;comment&quot;&gt;// service is service instance (this)&lt;/span&gt;
+    postexec(); &lt;span class=&quot;comment&quot;&gt;// executing the callbacks&lt;/span&gt;
+    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; re;
+  };
+})(abc, &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;) &lt;/span&gt;{
+  &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;string&quot;&gt;'executing all callbacks registered'&lt;/span&gt;); &lt;span class=&quot;comment&quot;&gt;//iterate over callbacks and execute them&lt;/span&gt;
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Service code concedes to one line code&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;
+ModelService.$inject = [&lt;span class=&quot;string&quot;&gt;'ObserverService'&lt;/span&gt;];
+
+&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;ModelService&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;os&lt;/span&gt;) &lt;/span&gt;{
+   os.wrap(self);
+   ...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Controller code remains the same. A plnkr is provided at the end of section with full working example.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Problem 2 :&lt;/strong&gt; When we keep adding the controllers to service observers, they keep getting accumulated. We need to remove the controller when view is changed ( controller is inactive).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;
+we use &lt;code&gt;$destroy&lt;/code&gt; to remove the observer in the &lt;code&gt;ObserverService&lt;/code&gt; code.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;scope.$on(&lt;span class=&quot;string&quot;&gt;'$destroy'&lt;/span&gt;, &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;) &lt;/span&gt;{
+  &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;._observers.splice(addedIndex, &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;);
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;For this we need to pass the &lt;code&gt;scope&lt;/code&gt; to the service. With this the controller code becomes :&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;ModelService.observe(&lt;span class=&quot;string&quot;&gt;'addModel'&lt;/span&gt;, $scope, &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;addedModel&lt;/span&gt;) &lt;/span&gt;{
+  vm.models.push(addedModel);
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt; Problem 3: &lt;/strong&gt; Even while using &lt;code&gt;Controller As&lt;/code&gt; syntax, we still need to inject $scope. And the controller is still populated with code related to observer. For each method of service, we need to add an observer method. But probably this is fine considering the advantages we get. We can check the second solution if that makes better sense.&lt;/p&gt;
+&lt;p&gt;Before that , summarizing all the changes, the example is shown in the following plunkr. When we add a model in a controller , it gets updated in other controllers:&lt;/p&gt;
+&lt;iframe style=&quot;width: 100%; height: 400px&quot; src=&quot;http://embed.plnkr.co/JCHWMaUyR66YqO66WN83&quot; frameborder=&quot;0&quot; allowfullscren=&quot;allowfullscren&quot;&gt;&lt;/iframe&gt;
+
+
+&lt;h3 id=&quot;solution-2-data-centric-services&quot;&gt;Solution 2 : Data centric services&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Service code remains same as Solution 1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//file : model-service.js&lt;/span&gt;
+&lt;span class=&quot;comment&quot;&gt;//ModelService code&lt;/span&gt;
+
+&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; models = [];
+&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;addModel&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;model&lt;/span&gt;) &lt;/span&gt;{
+  models.push(model);
+}
+
+&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;getModel&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;idx&lt;/span&gt;)&lt;/span&gt;{
+  &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; models[idx];
+}
+
+&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;getAllModels&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;{
+  &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; models;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Append the read methods of the service directly to the view, so it can access
+  directly&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//Controller code &lt;/span&gt;
+&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; model = &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;; 
+model.getAllModels = ModelService.getAllModels;
+model.getModel = ModelService.getModel;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;View is going to look like this:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-html&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;ng-controller&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;ModelController as model&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;ng-repeat&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;model in model.getAllModels()&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;
+    ...
+  &lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As we are directly calling the service methods in the view, when the data changes
+in the service, the view knows it and automatically updates the html
+accordingly. This is possible because angular adds the function to watchers
+list and keeps checking if the returned data of the function changed. &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Updating the model data is done using the regular controller to service calls&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//Controlle code &lt;/span&gt;
+
+&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; vm = &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;;
+
+vm.addModel = &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;{
+  ModelService.addModel(vm.newModel);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The basic example is shown in this plnkr&lt;/p&gt;
+&lt;iframe style=&quot;width: 100%; height: 400px&quot; src=&quot;http://embed.plnkr.co/HQVmSecqjWVT45FRO8z3&quot; frameborder=&quot;0&quot; allowfullscren=&quot;allowfullscren&quot;&gt;&lt;/iframe&gt;
+
+&lt;h4 id=&quot;advantages-solution-2-&quot;&gt;Advantages ( Solution 2)&lt;/h4&gt;
+&lt;p&gt;Along with the &lt;a href=&quot;#advantages-solution-1-&quot;&gt;advantages of solution 1&lt;/a&gt; we have
+these additional advantages: &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Minimal code in Controller ( only appending the services to view and write)&lt;/li&gt;
+&lt;li&gt;Angular adds watchers by default to all views so no need to add extra
+  watchers&lt;/li&gt;
+&lt;li&gt;Controllers wont store data. Being very light they can be modularized and
+  played around&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;problems-solution-2-&quot;&gt;Problems ( Solution 2)&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt; Problem 1 &lt;/strong&gt; : ( very important) Watchers cause infinite http calls. 
+This is probably only reason why this method should not be used without
+understanding how it works. Imagine a code like this : &lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//ModelService code &lt;/span&gt;
+
+&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.getAllModels = &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;{
+  $http.get(&lt;span class=&quot;string&quot;&gt;'...'&lt;/span&gt;).then(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;response&lt;/span&gt;)&lt;/span&gt;{
+    models = response.data;
+  })
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;When this method is directly accessed in view, it is by default added to
+watcher and for every single event this method gets called and we get infinite
+http calls. Ofcourse this is true even if we are using the regular controller
+method in the view like this : &lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//controller code &lt;/span&gt;
+&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; vm = &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;;
+vm.getModels = &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;{
+  &lt;span class=&quot;comment&quot;&gt;// service code which does http call&lt;/span&gt;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-html&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&amp;lt;!-- View code--&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;ng-repeat&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;modl in vm.getModels()&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Angular prevents this by giving an error but still its a crime to attach a
+function which does http call to the view. &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt; Solution &lt;/strong&gt; : 
+Before jumping to solution, lets see why this scenario occurs. Initially the service do not have any models. So, we need to do either of : &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Call HTTP call when service loads &lt;/li&gt;
+&lt;li&gt;Do the HTTP call when get call is made for the first time&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;First solution is not feasible as we will be loading too much data even if its
+not needed. Second way causes the problem we are discussing now. 
+We can fix this by adding a condition in our get call. &lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.getModels = &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;{
+  &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(!models || !models.length){
+    $http.get(url)
+         .then(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;res&lt;/span&gt;)&lt;/span&gt;{
+            models = res.data;
+          });
+  }
+  &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; models;
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This again causes similar issue, when we call this twice in succession, it does
+another http call when a call is already in progress. So we add another check
+for promise. &lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; getModelsPromise ;
+&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.getModels = &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;{
+  &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(!models || !models.length){
+    &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(!getModelPromise){
+      getModelPromise = $http.get(&lt;span class=&quot;string&quot;&gt;''&lt;/span&gt;);
+      getModelPromise.then(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;res&lt;/span&gt;)&lt;/span&gt;{
+          models = res.data;
+        });
+    }
+  }
+  &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; models;
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The above promise can be used in some other method too if needed. So that even
+if multiple service calls need the same http call, we are only creating one
+promise.
+The code might look a littel huge and small mistake might cause bugs. So, we
+can move this logic to another service and inject in each service as shown in
+Solution 1 . &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Problem 2&lt;/strong&gt; : Data is not sync with database. &lt;/p&gt;
+&lt;p&gt;We fetched data intially once and we are updating the model data in service
+only when someone does a add or update call . &lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; models = [];
+&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; getModelsPromise ;
+&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.getModels = &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;{
+  ...
+  return models;
+};
+
+&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.addModel = &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;model&lt;/span&gt;)&lt;/span&gt;{
+  $http.post(&lt;span class=&quot;string&quot;&gt;''&lt;/span&gt;,{})
+    .then(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;{
+      models.push(model);
+    });
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Only when one of the controller/component calls the addModel we are updating
+our models with new model. What happens when some other user who added a model
+to the database which, our model service is not aware of ? There is a sync
+issue that arises.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;: We can fix this in two ways : &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Do a http call frequently. Use $timeout and perform http call based on
+  severity every 5 min or 10 min . &lt;/li&gt;
+&lt;li&gt;Have a socketio connection, which updates the service whenever there is a
+  data change in the backend&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt; Problem 3 &lt;/strong&gt;: Too much data in memory&lt;/p&gt;
+&lt;p&gt;In case the model list is too high or there are lots of services. The memory
+usage might get too large. &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt; : To fix this issue we can use session storage to
+store the data.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; getModelsPromise ;
+&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.getModels = &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;{
+  &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; models = sessionStorage.getItem(&lt;span class=&quot;string&quot;&gt;'models'&lt;/span&gt;);
+  &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(!models || !models.length){
+    &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(!getModelPromise){
+      getModelPromise = $http.get(&lt;span class=&quot;string&quot;&gt;''&lt;/span&gt;);
+      getModelPromise.then(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;res&lt;/span&gt;)&lt;/span&gt;{
+          sessionStorage.setItem(&lt;span class=&quot;string&quot;&gt;'models'&lt;/span&gt;,res.data);
+        });
+    }
+  }
+  &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; models;
+};
+
+&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.addModel = &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;model&lt;/span&gt;)&lt;/span&gt;{
+  $http.post(&lt;span class=&quot;string&quot;&gt;''&lt;/span&gt;,{})
+    .then(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;{
+      &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; models = sessionStorage.getItem(&lt;span class=&quot;string&quot;&gt;'models'&lt;/span&gt;);
+      models.push(model);
+      sessionStorage.setItem(&lt;span class=&quot;string&quot;&gt;'models'&lt;/span&gt;,models);
+    });
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&quot;conclusion-&quot;&gt;Conclusion :&lt;/h3&gt;
+&lt;p&gt;For very simple app, the usual Controller-centric way of coding is good. But in
+case of complex apps, its always good to be more modular and keep the
+controllers simple. Make use of services more than they are intended to and fix
+the problems with workarounds mentioned above. &lt;/p&gt;
+</description>
+    </item>
+    <item>
+      <title>Testing private functions in Angular</title>
+      <link>http://vamshi-krishna.com/angular/angular/articles/test-private/</link>
+      <pubDate>Wed, 04 May 2016 17:00:00 -0700</pubDate>
+      <guid isPermaLink="true">http://vamshi-krishna.com/angular/angular/articles/test-private/</guid>
+      <author></author>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;This is a workaround. There is no framework support.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;tl;dr : &lt;a href=&quot;https://plnkr.co/edit/EGOOTDBUSuPltHDvEEKx?p=preview&quot;&gt;plnkr.co/edit/EGOOTDBUSuPltHDvEEKx&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;AngularJS by default is a very test friendly framework. For someone who is eager to try functional programming, these days I am writing a lot of tiny private functions and I want to test them independently. Ofcourse this is not possible with the current Angular framework. To overcome this problem I tried a work around and this blog is about that.&lt;/p&gt;
+&lt;p&gt;Lets start with a simple example:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-js&quot;&gt;angular.module(&lt;span class=&quot;string&quot;&gt;'app'&lt;/span&gt;,[])
+  .service(&lt;span class=&quot;string&quot;&gt;'Service1'&lt;/span&gt;,Service1);
+
+&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;Service1&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;{
+  &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.getMessage = &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;num1,num2&lt;/span&gt;)&lt;/span&gt;{
+    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;'The sum of the numbers is '&lt;/span&gt;+sum(num1,num2);
+  };
+  &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;sum&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;num1, num2&lt;/span&gt;)&lt;/span&gt;{
+    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; num1+num2;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I am not interested to test &lt;code&gt;getMessage&lt;/code&gt; . I only want to test &lt;code&gt;sum&lt;/code&gt; as that is where all the logic happening. My unit test file looks like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-js&quot;&gt;describe(&lt;span class=&quot;string&quot;&gt;'main tests'&lt;/span&gt;,tests);
+&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;tests&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;{
+  &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; service;
+  beforeEach(&lt;span class=&quot;built_in&quot;&gt;module&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'app'&lt;/span&gt;));
+  beforeEach(inject(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;Service1&lt;/span&gt;)&lt;/span&gt;{
+    service = Service1;
+  }));
+
+  it(&lt;span class=&quot;string&quot;&gt;&quot;should return the sum&quot;&lt;/span&gt;,&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;{
+    expect(service.sum(&lt;span class=&quot;number&quot;&gt;4&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;5&lt;/span&gt;)).toBe(&lt;span class=&quot;number&quot;&gt;9&lt;/span&gt;);
+  });
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I want to get this working. But it gives error.&lt;/p&gt;
+&lt;p&gt;To get this working, I added another service which always gives &lt;code&gt;false&lt;/code&gt; for &lt;code&gt;testEnabled&lt;/code&gt; value. In general case, we never touch it, but we will set it to &lt;code&gt;true&lt;/code&gt; during testing. This way we can convert private functions to public during test and leave them private in general cases.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-js&quot;&gt;angular.module(&lt;span class=&quot;string&quot;&gt;'app'&lt;/span&gt;,[])
+  .service(&lt;span class=&quot;string&quot;&gt;'Service1'&lt;/span&gt;,Service1)
+  .service(&lt;span class=&quot;string&quot;&gt;'Service2'&lt;/span&gt;,Service2);
+
+&lt;span class=&quot;comment&quot;&gt;//Service2 code&lt;/span&gt;
+
+&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;Service1&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;{
+  &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.getMessage = &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;num1,num2&lt;/span&gt;)&lt;/span&gt;{
+    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;'The sum of the numbers is '&lt;/span&gt;+sum(num1,num2);
+  };
+  &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;sum&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;num1, num2&lt;/span&gt;)&lt;/span&gt;{
+    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; num1+num2;
+  }
+
+  &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(Service2.testEnabled){
+    &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.sum = sum;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we can continue with unit tests.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-js&quot;&gt;angular.module(&lt;span class=&quot;string&quot;&gt;'app'&lt;/span&gt;,[])
+  .service(&lt;span class=&quot;string&quot;&gt;'Service1'&lt;/span&gt;,Service1)
+  .service(&lt;span class=&quot;string&quot;&gt;'Service2'&lt;/span&gt;,Service2);
+
+
+describe(&lt;span class=&quot;string&quot;&gt;'main tests'&lt;/span&gt;,tests);
+&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;tests&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;{
+  &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; service, service2;
+  beforeEach(&lt;span class=&quot;built_in&quot;&gt;module&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'app'&lt;/span&gt;));
+  beforeEach(inject(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;Service2&lt;/span&gt;)&lt;/span&gt;{
+    service2 = Service2;
+    service2.enableTest();
+  }));
+  beforeEach(inject(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;Service1&lt;/span&gt;)&lt;/span&gt;{
+    service = Service1;
+  }));
+
+  it(&lt;span class=&quot;string&quot;&gt;&quot;should return the name&quot;&lt;/span&gt;,&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;{
+    expect(service.sum(&lt;span class=&quot;number&quot;&gt;4&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;5&lt;/span&gt;)).toBe(&lt;span class=&quot;number&quot;&gt;9&lt;/span&gt;);
+  });
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Works great !!&lt;/p&gt;
+&lt;p&gt;The same can be used for private functions in Controllers too.&lt;/p&gt;
+</description>
+    </item>
+  </channel>
+</rss>
