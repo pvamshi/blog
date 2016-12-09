@@ -305,7 +305,7 @@ describe('login page', function() {
     loginPage.getURL();
 		expect(loginPage.browserTitle()).toEqual('Login | Kareo');
 	
-    loginPage.setUserName('..'); //fill in user id 
+    loginPage.setUserName('..'); //fill in userid 
     loginPage.setPassWord('...'); //fill in password
     loginPage.clickSignIn();
 		// verify search Text box after login 
