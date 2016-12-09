@@ -1,5 +1,19 @@
+general:
+  branches:
+    ignore:
+      - gh-pages
 machine:
   node:
 checkout:
   post:
     - ./build.sh
+
+test:
+  override:
+    - exit 0
+
+deployment:
+  production:
+    branch: master
+    commands:
+      - ./scripts/deploy-ghpages.sh
