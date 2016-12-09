@@ -162,5 +162,5 @@ As we can see its very easy to write our own build code. It is very extensible, 
 * Add or remove features easily
 * Add customized features easily as its plain javascript code
 * If we are dealing with micro services or multiple projects, We can add a config file and decide which ones to enable and disable for each project. All the projects can use the same script and its easy to impose rules or overwrite rules
-* Convert this to a module and share across teams
+* Convert this to a module and share across teams.
 
