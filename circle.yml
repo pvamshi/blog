@@ -2,6 +2,4 @@ machine:
   node:
 checkout:
   post:
-    - npm install -g wintersmith
-    - cd src
-    - wintersmith build
+    - ./build.sh
