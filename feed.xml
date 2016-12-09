@@ -491,7 +491,7 @@ That is it. If we write code in our src , it automatically compiles and updates 
 &lt;li&gt;Add or remove features easily&lt;/li&gt;
 &lt;li&gt;Add customized features easily as its plain javascript code&lt;/li&gt;
 &lt;li&gt;If we are dealing with micro services or multiple projects, We can add a config file and decide which ones to enable and disable for each project. All the projects can use the same script and its easy to impose rules or overwrite rules&lt;/li&gt;
-&lt;li&gt;Convert this to a module and share across teams&lt;/li&gt;
+&lt;li&gt;Convert this to a module and share across teams.&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>
