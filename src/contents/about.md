@@ -2,11 +2,8 @@
 view: none
 ---
 
-I am a full stack developer working for [Imaginea Technologies Pvt. Ltd.][1]
-located at Hydearbad. These are few angular related musings which can be used in web
-application development. You can do me a favor by commenting out improvements
-or pointing out my mistakes.
+I am a frontend developer working for [Syncron][1] 
+located at Bengaluru. I blog to record and share technical learnings in day today life. 
 
 
-
-[1]: http://www.imaginea.com/
+[1]: http://syncron.com/
