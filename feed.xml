@@ -326,7 +326,7 @@ describe(&lt;span class=&quot;string&quot;&gt;'login page'&lt;/span&gt;, &lt;spa
     loginPage.getURL();
         expect(loginPage.browserTitle()).toEqual(&lt;span class=&quot;string&quot;&gt;'Login | Kareo'&lt;/span&gt;);
 
-    loginPage.setUserName(&lt;span class=&quot;string&quot;&gt;'..'&lt;/span&gt;); &lt;span class=&quot;comment&quot;&gt;//fill in user id &lt;/span&gt;
+    loginPage.setUserName(&lt;span class=&quot;string&quot;&gt;'..'&lt;/span&gt;); &lt;span class=&quot;comment&quot;&gt;//fill in userid &lt;/span&gt;
     loginPage.setPassWord(&lt;span class=&quot;string&quot;&gt;'...'&lt;/span&gt;); &lt;span class=&quot;comment&quot;&gt;//fill in password&lt;/span&gt;
     loginPage.clickSignIn();
         &lt;span class=&quot;comment&quot;&gt;// verify search Text box after login &lt;/span&gt;
