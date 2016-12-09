@@ -16,7 +16,7 @@
       <author></author>
       <description>&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
 &lt;p&gt;The UI code consists of client side code ( Javascript , HTML, CSS). This document talks about the problems faced in UI code quality management and few suggestions on how to fix them. Being micro service archtecture adds more complexity to the issue. We need to figure out work arounds to handle these problems.&lt;/p&gt;
-&lt;p&gt;The document is going to be in Question &amp;amp; Answer mode , where the question describes the problem being faced and the answer the solution. Sometimes the solution might create more problems, so the subsequent question might be based on the solution given to previous question. &lt;/p&gt;
+&lt;p&gt;This document is going to be in Question &amp;amp; Answer mode , where the question describes the problem being faced and the answer the solution. Sometimes the solution might create more problems, so the subsequent question might be based on the solution given to previous question. &lt;/p&gt;
 &lt;p&gt;The context of the project is going to be UI code with following frameworks and libraries: &lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Angular 1+&lt;/li&gt;
