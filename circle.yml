@@ -1,9 +1,7 @@
 machine:
   node:
-dependencies:
-  pre:
-    - npm install -g wintersmith
 checkout:
   post:
+    - npm install -g wintersmith
     - cd src
     - wintersmith build
