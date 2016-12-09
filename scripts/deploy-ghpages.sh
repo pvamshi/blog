@@ -40,8 +40,10 @@ git config --global user.name "$GH_NAME" > /dev/null 2>&1
 # copy over or recompile the new site
 # cp -a "../${siteSource}/." .
 
+git stash
 git checkout gh-pages
 # stage any changes and new files
+git stash apply
 git add -A
 # now commit, ignoring branch gh-pages doesn't seem to work, so trying skip
 git commit --allow-empty -m "Deploy to GitHub pages [ci skip]"
