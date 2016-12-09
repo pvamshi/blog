@@ -9,7 +9,7 @@ comments: true
 ### Introduction
 The UI code consists of client side code ( Javascript , HTML, CSS). This document talks about the problems faced in UI code quality management and few suggestions on how to fix them. Being micro service archtecture adds more complexity to the issue. We need to figure out work arounds to handle these problems.
 
-The document is going to be in Question & Answer mode , where the question describes the problem being faced and the answer the solution. Sometimes the solution might create more problems, so the subsequent question might be based on the solution given to previous question. 
+This document is going to be in Question & Answer mode , where the question describes the problem being faced and the answer the solution. Sometimes the solution might create more problems, so the subsequent question might be based on the solution given to previous question. 
 
 The context of the project is going to be UI code with following frameworks and libraries: 
 - Angular 1+
