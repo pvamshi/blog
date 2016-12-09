@@ -6,7 +6,7 @@ machine:
   node:
 checkout:
   post:
-    - ./build.sh
+    - ./script/build.sh
 
 test:
   override:
