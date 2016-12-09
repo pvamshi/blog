@@ -1,0 +1,10 @@
+machine:
+  node:
+    version: 0.11.8
+dependencies:
+  pre:
+    - npm install -g wintersmith
+checkout:
+  post:
+    - cd src
+    - wintersmith build
