@@ -5,13 +5,13 @@
     <atom:link href="http://vamshi-krishna.com/angular/feed.xml" rel="self" type="application/rss+xml"></atom:link>
     <link>http://vamshi-krishna.com/angular</link>
     <description>Blogs on web development</description>
-    <pubDate>Mon, 11 Jul 2016 21:32:00 -0700</pubDate>
+    <pubDate>Tue, 12 Jul 2016 04:32:00 +0000</pubDate>
     <generator>Wintersmith - https://github.com/jnordberg/wintersmith</generator>
     <language>en</language>
     <item>
       <title>How to improve UI code quality in micro services architecture</title>
       <link>http://vamshi-krishna.com/angular/blog/articles/ui-code-quality/</link>
-      <pubDate>Mon, 11 Jul 2016 21:32:00 -0700</pubDate>
+      <pubDate>Tue, 12 Jul 2016 04:32:00 +0000</pubDate>
       <guid isPermaLink="true">http://vamshi-krishna.com/angular/blog/articles/ui-code-quality/</guid>
       <author></author>
       <description>&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
@@ -326,7 +326,7 @@ describe(&lt;span class=&quot;string&quot;&gt;'login page'&lt;/span&gt;, &lt;spa
     loginPage.getURL();
         expect(loginPage.browserTitle()).toEqual(&lt;span class=&quot;string&quot;&gt;'Login | Kareo'&lt;/span&gt;);
 
-    loginPage.setUserName(&lt;span class=&quot;string&quot;&gt;'..'&lt;/span&gt;); &lt;span class=&quot;comment&quot;&gt;//fill in user id &lt;/span&gt;
+    loginPage.setUserName(&lt;span class=&quot;string&quot;&gt;'..'&lt;/span&gt;); &lt;span class=&quot;comment&quot;&gt;//fill in userid &lt;/span&gt;
     loginPage.setPassWord(&lt;span class=&quot;string&quot;&gt;'...'&lt;/span&gt;); &lt;span class=&quot;comment&quot;&gt;//fill in password&lt;/span&gt;
     loginPage.clickSignIn();
         &lt;span class=&quot;comment&quot;&gt;// verify search Text box after login &lt;/span&gt;
@@ -354,7 +354,7 @@ $ hg clone https://bitbucket.org/org/login-ui-po po
     <item>
       <title>Project building using node</title>
       <link>http://vamshi-krishna.com/angular/blog/articles/node-build/</link>
-      <pubDate>Wed, 06 Jul 2016 05:32:00 -0700</pubDate>
+      <pubDate>Wed, 06 Jul 2016 12:32:00 +0000</pubDate>
       <guid isPermaLink="true">http://vamshi-krishna.com/angular/blog/articles/node-build/</guid>
       <author></author>
       <description>&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
@@ -491,14 +491,14 @@ That is it. If we write code in our src , it automatically compiles and updates 
 &lt;li&gt;Add or remove features easily&lt;/li&gt;
 &lt;li&gt;Add customized features easily as its plain javascript code&lt;/li&gt;
 &lt;li&gt;If we are dealing with micro services or multiple projects, We can add a config file and decide which ones to enable and disable for each project. All the projects can use the same script and its easy to impose rules or overwrite rules&lt;/li&gt;
-&lt;li&gt;Convert this to a module and share across teams&lt;/li&gt;
+&lt;li&gt;Convert this to a module and share across teams.&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>
     <item>
       <title>Service centric architecture in AngularJS</title>
       <link>http://vamshi-krishna.com/angular/blog/articles/services/</link>
-      <pubDate>Sat, 04 Jun 2016 21:32:00 -0700</pubDate>
+      <pubDate>Sun, 05 Jun 2016 04:32:00 +0000</pubDate>
       <guid isPermaLink="true">http://vamshi-krishna.com/angular/blog/articles/services/</guid>
       <author></author>
       <description>&lt;ul&gt;
@@ -904,7 +904,7 @@ the problems with workarounds mentioned above. &lt;/p&gt;
     <item>
       <title>Testing private functions in Angular</title>
       <link>http://vamshi-krishna.com/angular/blog/articles/test-private/</link>
-      <pubDate>Wed, 04 May 2016 17:00:00 -0700</pubDate>
+      <pubDate>Thu, 05 May 2016 00:00:00 +0000</pubDate>
       <guid isPermaLink="true">http://vamshi-krishna.com/angular/blog/articles/test-private/</guid>
       <author></author>
       <description>&lt;blockquote&gt;
