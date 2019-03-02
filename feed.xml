@@ -4,15 +4,15 @@
     <title>Frontend Development</title>
     <atom:link href="http://vamshi-krishna.com/angular/feed.xml" rel="self" type="application/rss+xml"></atom:link>
     <link>http://vamshi-krishna.com/angular</link>
-    <description>Blogs on web development</description>
-    <pubDate>Tue, 12 Jul 2016 04:32:00 +0000</pubDate>
+    <description>console.log(me); // ['Javascript', 'Angular', 'React']</description>
+    <pubDate>Tue, 12 Jul 2016 10:02:00 +0630</pubDate>
     <generator>Wintersmith - https://github.com/jnordberg/wintersmith</generator>
     <language>en</language>
     <item>
       <title>How to improve UI code quality in micro services architecture</title>
-      <link>http://vamshi-krishna.com/angular/blog/articles/ui-code-quality/</link>
-      <pubDate>Tue, 12 Jul 2016 04:32:00 +0000</pubDate>
-      <guid isPermaLink="true">http://vamshi-krishna.com/angular/blog/articles/ui-code-quality/</guid>
+      <link>http://vamshi-krishna.com/angular/articles/ui-code-quality/</link>
+      <pubDate>Tue, 12 Jul 2016 10:02:00 +0630</pubDate>
+      <guid isPermaLink="true">http://vamshi-krishna.com/angular/articles/ui-code-quality/</guid>
       <author></author>
       <description>&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
 &lt;p&gt;The UI code consists of client side code ( Javascript , HTML, CSS). This document talks about the problems faced in UI code quality management and few suggestions on how to fix them. Being micro service archtecture adds more complexity to the issue. We need to figure out work arounds to handle these problems.&lt;/p&gt;
@@ -81,7 +81,7 @@ Eslint helps in &lt;/p&gt;
 &lt;/ul&gt;
 &lt;h2 id=&quot;solution-&quot;&gt;Solution ?&lt;/h2&gt;
 &lt;p&gt;We can have a single file shared by all projects. We have a single project which defines the rules and all other projects import from this configuration. The way to do this is by having a project hosted publicly. &lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-js&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//index.js in base-eslint-config project&lt;/span&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//index.js in base-eslint-config project&lt;/span&gt;
 &lt;span class=&quot;built_in&quot;&gt;module&lt;/span&gt;.exports = {
   &lt;span class=&quot;string&quot;&gt;'env'&lt;/span&gt;: {
     &lt;span class=&quot;string&quot;&gt;'browser'&lt;/span&gt;: &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;,
@@ -99,12 +99,10 @@ Eslint helps in &lt;/p&gt;
     &lt;span class=&quot;string&quot;&gt;'module'&lt;/span&gt; : &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;
   },
   &lt;span class=&quot;string&quot;&gt;'rules'&lt;/span&gt;: {}
-  };
-&lt;/code&gt;&lt;/pre&gt;
+  };&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This configuration can be installed into each project by &lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;npm install --save https://path-to-repository
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This installs the configuration into our project. We can then use all the configurations mentioned there just by extending it. &lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-js&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//.eslintrc&lt;/span&gt;
+&lt;pre&gt;&lt;code&gt;npm install --save https://path-to-repository&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This installs the configuration into our project. We can then use all the configurations mentioned there just by extending it. &lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//.eslintrc&lt;/span&gt;
 {
 &lt;span class=&quot;string&quot;&gt;&quot;extends&quot;&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;&quot;base-eslint-config&quot;&lt;/span&gt;,
   &lt;span class=&quot;string&quot;&gt;&quot;plugins&quot;&lt;/span&gt;: [&lt;span class=&quot;string&quot;&gt;&quot;angular&quot;&lt;/span&gt;],
@@ -113,8 +111,7 @@ Eslint helps in &lt;/p&gt;
     &lt;span class=&quot;string&quot;&gt;&quot;angular/di-unused&quot;&lt;/span&gt;: &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,
     &lt;span class=&quot;string&quot;&gt;&quot;angular/no-http-callback&quot;&lt;/span&gt;: &lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;
   }
-}
-&lt;/code&gt;&lt;/pre&gt;
+}&lt;/code&gt;&lt;/pre&gt;
 &lt;ul&gt;
 &lt;li&gt;We can write additional rules to either override the base project rules or add new rules&lt;/li&gt;
 &lt;li&gt;When we start using eslint, legacy code is not yet compliant. We can add rules to disable warning and keep enabling them one by one as and when we refactor the code to fix the eslint errors&lt;/li&gt;
@@ -139,16 +136,16 @@ Eslint helps in &lt;/p&gt;
 &lt;/ul&gt;
 &lt;h2 id=&quot;solution-&quot;&gt;Solution :&lt;/h2&gt;
 &lt;p&gt;Again, use a single grunt config and share it across. The way to do is using node app &lt;a href=&quot;https://github.com/AdesisNetlife/croak&quot;&gt;Croak&lt;/a&gt;. With croak, we can have single project with all the grunt configs enabled. Each project will have a croak config instead of Grunt and we can override the rules declared in gruntfile. &lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-js&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// example from croak documentation . &lt;/span&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// example from croak documentation . &lt;/span&gt;
 &lt;span class=&quot;built_in&quot;&gt;module&lt;/span&gt;.exports = &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; (&lt;span class=&quot;params&quot;&gt;croak&lt;/span&gt;) &lt;/span&gt;{
 
   croak.extendConfig({
-    log: {
-      foo: {},
-      bar: &lt;span class=&quot;string&quot;&gt;'hello croak'&lt;/span&gt;
+    &lt;span class=&quot;attr&quot;&gt;log&lt;/span&gt;: {
+      &lt;span class=&quot;attr&quot;&gt;foo&lt;/span&gt;: {},
+      &lt;span class=&quot;attr&quot;&gt;bar&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;'hello croak'&lt;/span&gt;
     },
-    read: {
-      files: [
+    &lt;span class=&quot;attr&quot;&gt;read&lt;/span&gt;: {
+      &lt;span class=&quot;attr&quot;&gt;files&lt;/span&gt;: [
         &lt;span class=&quot;string&quot;&gt;'&amp;lt;%= croak.root %&amp;gt;/file.json'&lt;/span&gt;
         __dirname + &lt;span class=&quot;string&quot;&gt;'/another-file.json'&lt;/span&gt;
       ]
@@ -162,51 +159,48 @@ Eslint helps in &lt;/p&gt;
 
   croak.registerTask(&lt;span class=&quot;string&quot;&gt;'default'&lt;/span&gt;, [&lt;span class=&quot;string&quot;&gt;'log'&lt;/span&gt;])
 
-  }
-&lt;/code&gt;&lt;/pre&gt;
+  }&lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&quot;using-node-instead-of-grunt-gulp-&quot;&gt;Using node (instead of Grunt/Gulp)&lt;/h2&gt;
 &lt;p&gt;We can write our own script custom build for our requirements. These are few node apps which can be used : &lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
 &lt;th&gt;Purpose&lt;/th&gt;
-&lt;th style=&quot;text-align:left&quot;&gt;Node app&lt;/th&gt;
+&lt;th align=&quot;left&quot;&gt;Node app&lt;/th&gt;
 &lt;/tr&gt;
 &lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
+&lt;tbody&gt;&lt;tr&gt;
 &lt;td&gt;Watching file changes&lt;/td&gt;
-&lt;td style=&quot;text-align:left&quot;&gt;chokidar&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;chokidar&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;Transpile ES2015&lt;/td&gt;
-&lt;td style=&quot;text-align:left&quot;&gt;babel&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;babel&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;Transpile coffeescript&lt;/td&gt;
-&lt;td style=&quot;text-align:left&quot;&gt;coffee-script&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;coffee-script&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;jade/pug&lt;/td&gt;
-&lt;td style=&quot;text-align:left&quot;&gt;jade&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;jade&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;file read/write&lt;/td&gt;
-&lt;td style=&quot;text-align:left&quot;&gt;shelljs&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;shelljs&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;minify&lt;/td&gt;
-&lt;td style=&quot;text-align:left&quot;&gt;uglify-js&lt;/td&gt;
+&lt;td align=&quot;left&quot;&gt;uglify-js&lt;/td&gt;
 &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
+&lt;/tbody&gt;&lt;/table&gt;
 &lt;p&gt;A simple build script looks like this : &lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-js&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//build.js&lt;/span&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//build.js&lt;/span&gt;
 &lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; watch = &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'chokidar'&lt;/span&gt;).watch;
 &lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; babel = &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'babel-core'&lt;/span&gt;);
 &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'shelljs/global'&lt;/span&gt;);
 &lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; presets = {
-  presets: [ &lt;span class=&quot;string&quot;&gt;'es2015'&lt;/span&gt;]
+  &lt;span class=&quot;attr&quot;&gt;presets&lt;/span&gt;: [ &lt;span class=&quot;string&quot;&gt;'es2015'&lt;/span&gt;]
 };
 
 watch(&lt;span class=&quot;string&quot;&gt;'./src/js/**/*.js'&lt;/span&gt;)
@@ -231,8 +225,7 @@ watch(&lt;span class=&quot;string&quot;&gt;'./temp/**/*.js'&lt;/span&gt;)
 
 &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;transpileToEs5&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;code&lt;/span&gt;)&lt;/span&gt;{
   &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; babel.transform(code, presets);
-}
-&lt;/code&gt;&lt;/pre&gt;
+}&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This script can be imported to all projects by using exports/imports.Different paths and other variables can be injected through a config file. This way , when we want to add a new feature, we just need to add that to this script and we have the feature available to all projects. &lt;/p&gt;
 &lt;h3 id=&quot;testing-and-code-coverage-&quot;&gt;Testing ( and Code coverage )&lt;/h3&gt;
 &lt;p&gt;Words cannot describe the importance of testing in quality assurance. We have two types of testing : &lt;/p&gt;
@@ -243,38 +236,37 @@ watch(&lt;span class=&quot;string&quot;&gt;'./temp/**/*.js'&lt;/span&gt;)
 &lt;h2 id=&quot;unit-testing&quot;&gt;Unit testing&lt;/h2&gt;
 &lt;p&gt;Unit testing is testing a given function or module by mocking all other interactions. If the module calls another service or module, we mock the response of that module so that we are concerned only about the code we are testing. Unit tests are very light due to mock data and are thus very easy to run. Most of the cases every change in our code is accompanied by running all the related unit tests to make sure no other functionality broke. &lt;/p&gt;
 &lt;p&gt;We use karma for testing jasmine tests. The Gruntfile has related entry : &lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-js&quot;&gt;{
-        options: {
-          files: [
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;{
+        &lt;span class=&quot;attr&quot;&gt;options&lt;/span&gt;: {
+          &lt;span class=&quot;attr&quot;&gt;files&lt;/span&gt;: [
             &lt;span class=&quot;string&quot;&gt;'&amp;lt;%= test_files.vendor %&amp;gt;'&lt;/span&gt;,
             &lt;span class=&quot;string&quot;&gt;'&amp;lt;%= vendor_files.js %&amp;gt;'&lt;/span&gt;,
             &lt;span class=&quot;string&quot;&gt;'&amp;lt;%= app_files.js %&amp;gt;'&lt;/span&gt;,
             &lt;span class=&quot;string&quot;&gt;'&amp;lt;%= test_files.js %&amp;gt;'&lt;/span&gt;
           ],
-          browsers: [&lt;span class=&quot;string&quot;&gt;'PhantomJS'&lt;/span&gt;],
-          logLevel: &lt;span class=&quot;string&quot;&gt;'DEBUG'&lt;/span&gt;,
-          frameworks: [&lt;span class=&quot;string&quot;&gt;'jasmine'&lt;/span&gt;],
-          preprocessors: {
+          &lt;span class=&quot;attr&quot;&gt;browsers&lt;/span&gt;: [&lt;span class=&quot;string&quot;&gt;'PhantomJS'&lt;/span&gt;],
+          &lt;span class=&quot;attr&quot;&gt;logLevel&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;'DEBUG'&lt;/span&gt;,
+          &lt;span class=&quot;attr&quot;&gt;frameworks&lt;/span&gt;: [&lt;span class=&quot;string&quot;&gt;'jasmine'&lt;/span&gt;],
+          &lt;span class=&quot;attr&quot;&gt;preprocessors&lt;/span&gt;: {
             &lt;span class=&quot;string&quot;&gt;'src/**/*.js'&lt;/span&gt;: [&lt;span class=&quot;string&quot;&gt;'babel'&lt;/span&gt;],
             &lt;span class=&quot;string&quot;&gt;'src/**/!(*.spec|*.mock)*.js'&lt;/span&gt;: [&lt;span class=&quot;string&quot;&gt;'coverage'&lt;/span&gt;]
           },
-          coverageReporter : {
-            reporters:[
-              {type: &lt;span class=&quot;string&quot;&gt;'html'&lt;/span&gt;, dir:&lt;span class=&quot;string&quot;&gt;'build/coverage/'&lt;/span&gt;, subdir: &lt;span class=&quot;string&quot;&gt;'.'&lt;/span&gt;},
-              {type: &lt;span class=&quot;string&quot;&gt;'text-summary'&lt;/span&gt;}
+          &lt;span class=&quot;attr&quot;&gt;coverageReporter&lt;/span&gt; : {
+            &lt;span class=&quot;attr&quot;&gt;reporters&lt;/span&gt;:[
+              {&lt;span class=&quot;attr&quot;&gt;type&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;'html'&lt;/span&gt;, &lt;span class=&quot;attr&quot;&gt;dir&lt;/span&gt;:&lt;span class=&quot;string&quot;&gt;'build/coverage/'&lt;/span&gt;, &lt;span class=&quot;attr&quot;&gt;subdir&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;'.'&lt;/span&gt;},
+              {&lt;span class=&quot;attr&quot;&gt;type&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;'text-summary'&lt;/span&gt;}
             ]
           },
         },
-        unit: {
-          runnerPort: &lt;span class=&quot;number&quot;&gt;9101&lt;/span&gt;,
-          port: &lt;span class=&quot;number&quot;&gt;9103&lt;/span&gt;,
-          background: &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;
+        &lt;span class=&quot;attr&quot;&gt;unit&lt;/span&gt;: {
+          &lt;span class=&quot;attr&quot;&gt;runnerPort&lt;/span&gt;: &lt;span class=&quot;number&quot;&gt;9101&lt;/span&gt;,
+          &lt;span class=&quot;attr&quot;&gt;port&lt;/span&gt;: &lt;span class=&quot;number&quot;&gt;9103&lt;/span&gt;,
+          &lt;span class=&quot;attr&quot;&gt;background&lt;/span&gt;: &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;
         },
-        continuous: {
-          singleRun: &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;
+        &lt;span class=&quot;attr&quot;&gt;continuous&lt;/span&gt;: {
+          &lt;span class=&quot;attr&quot;&gt;singleRun&lt;/span&gt;: &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;
         }
-      }
-&lt;/code&gt;&lt;/pre&gt;
+      }&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Code coverage : Code coverage is a metrics which shows what percentage of code is handled in unit tests. It even calculates the coverage in conditional branches. &lt;/p&gt;
 &lt;p&gt;The entry &lt;code&gt;coverateReporter&lt;/code&gt; in the above script validates the unit tests and generates html files which give detailed information on total code coverage . It shows code coverage at each line level. We can have build configured in teamcity,travis-ci etc to read these docs and break build if total code coverage percentage is lesser than previous build. &lt;/p&gt;
 &lt;h2 id=&quot;e2e-testing&quot;&gt;e2e testing&lt;/h2&gt;
@@ -282,7 +274,7 @@ watch(&lt;span class=&quot;string&quot;&gt;'./temp/**/*.js'&lt;/span&gt;)
 The page does the network call to fetch data and everything is realtime. For this reason, e2e is very expensive operation. We have data and network overhead. Its slow and resource intensive. But as it is not a simulation but real job automated , its very valuable. We check the e2e tests only when we are ready to push the code unlike unit tests which are checked after each change . &lt;/p&gt;
 &lt;p&gt;The general convetion for e2e tests are to have &lt;code&gt;po&lt;/code&gt; objects(files) and spec files.&lt;code&gt;po&lt;/code&gt; files contains objects which have information on different pages of the webapp like url, fields, navigation details etc., &lt;code&gt;spec&lt;/code&gt; files interact with &lt;code&gt;po&lt;/code&gt; files to get info and execute tests. &lt;/p&gt;
 &lt;p&gt;Example: &lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-js&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//login-ui po &lt;/span&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//login-ui po &lt;/span&gt;
 &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; LoginPage = &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;) &lt;/span&gt;{
   &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; userName = element(by.id(&lt;span class=&quot;string&quot;&gt;'userName'&lt;/span&gt;));
   &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; passWord = element(by.id(&lt;span class=&quot;string&quot;&gt;'password'&lt;/span&gt;));
@@ -315,9 +307,8 @@ The page does the network call to fetch data and everything is realtime. For thi
 
 };
 
-&lt;span class=&quot;built_in&quot;&gt;module&lt;/span&gt;.exports = LoginPage;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-js&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//spec.js&lt;/span&gt;
+&lt;span class=&quot;built_in&quot;&gt;module&lt;/span&gt;.exports = LoginPage;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//spec.js&lt;/span&gt;
 
 &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; LoginPage = &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'../po/login-page.po'&lt;/span&gt;);
 describe(&lt;span class=&quot;string&quot;&gt;'login page'&lt;/span&gt;, &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;) &lt;/span&gt;{
@@ -331,8 +322,7 @@ describe(&lt;span class=&quot;string&quot;&gt;'login page'&lt;/span&gt;, &lt;spa
     loginPage.clickSignIn();
         &lt;span class=&quot;comment&quot;&gt;// verify search Text box after login &lt;/span&gt;
   });
-});
-&lt;/code&gt;&lt;/pre&gt;
+});&lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&quot;problem-&quot;&gt;Problem :&lt;/h2&gt;
 &lt;p&gt;Every project need to use login PO to login into the app before navigating to their project. Similarly there are many other PO objects which need to be shared across the projects. 
 As all projects are private repositories , we can not share the code as we did earlier. &lt;/p&gt;
@@ -345,18 +335,17 @@ $ echo &amp;#39;test/po = https://bitbucket.org/org/login-ui-po&amp;#39; &amp;gt
 $ hg add .hgsub
 $ hg commit -m &amp;quot;Adding subrepo&amp;quot; 
 $ cd test
-$ hg clone https://bitbucket.org/org/login-ui-po po
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;We are adding a subrepo to our login-ui by adding the info in the file &lt;code&gt;.hgsub&lt;/code&gt;. We need to provide info in the form of &lt;/p&gt;
+$ hg clone https://bitbucket.org/org/login-ui-po po&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;We are adding a subrepo to our login-ui by adding the info in the file &lt;code&gt;.hgsub&lt;/code&gt;. We need to provide info in the form of &lt;/p&gt;
 &lt;p&gt;&amp;lt;destination folder&amp;gt; = &amp;lt;repository url&amp;gt;&lt;/p&gt;
 &lt;p&gt;Then we clone the repository in the correct path. Now we can clone login-ui-po into all projects which need login-ui &lt;code&gt;po&lt;/code&gt; objects. Adding code to &lt;code&gt;login-ui-po&lt;/code&gt; will be reflected in all projects which are using it . When we perform pull for our project, the subrepo will also get updated . This way we are linking po objects in multiple projects when and where they are needed without changing any other build process or structure. &lt;/p&gt;
 </description>
     </item>
     <item>
       <title>Project building using node</title>
-      <link>http://vamshi-krishna.com/angular/blog/articles/node-build/</link>
-      <pubDate>Wed, 06 Jul 2016 12:32:00 +0000</pubDate>
-      <guid isPermaLink="true">http://vamshi-krishna.com/angular/blog/articles/node-build/</guid>
-      <author></author>
+      <link>http://vamshi-krishna.com/angular/articles/node-build/</link>
+      <pubDate>Wed, 06 Jul 2016 18:02:00 +0630</pubDate>
+      <guid isPermaLink="true">http://vamshi-krishna.com/angular/articles/node-build/</guid>
+      <author>Vamshi Krishna`</author>
       <description>&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
 &lt;p&gt;The de facto way of watching and building a UI project is by using either of grunt, gulp or rarely npm. In this blog we will see how it can be done using node alone.  &lt;/p&gt;
 &lt;h3 id=&quot;general-idea&quot;&gt;General Idea&lt;/h3&gt;
@@ -374,29 +363,25 @@ $ hg clone https://bitbucket.org/org/login-ui-po po
     │   ├── css
     │   ├── index.html
     │   └── js
-    └── temp
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;src&lt;/code&gt; is where the source code is going to saved. &lt;code&gt;build&lt;/code&gt; is for final build where all the javascript is loaded to single javascript file and all the css( sass comipled) in a single css.  We will be having all our javascript in ES6 ( can be typescript or coffeescript or other format too )  .
+    └── temp&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;src&lt;/code&gt; is where the source code is going to saved. &lt;code&gt;build&lt;/code&gt; is for final build where all the javascript is loaded to single javascript file and all the css( sass comipled) in a single css.  We will be having all our javascript in ES6 ( can be typescript or coffeescript or other format too )  .
 &lt;code&gt;temp&lt;/code&gt; folder is where we store the compiled files ( js or css). &lt;/p&gt;
 &lt;p&gt;The steps are as follows :&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-shell&quot;&gt;$ mkdir test 
-$ cd test
-$ npm init
-$ mkdir src build temp src/js src/css
-# touch src/index.html
-#
-&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;meta&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;bash&quot;&gt; mkdir &lt;span class=&quot;built_in&quot;&gt;test&lt;/span&gt; &lt;/span&gt;
+&lt;span class=&quot;meta&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;bash&quot;&gt; &lt;span class=&quot;built_in&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;test&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;meta&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;bash&quot;&gt; npm init&lt;/span&gt;
+&lt;span class=&quot;meta&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;bash&quot;&gt; mkdir src build temp src/js src/css&lt;/span&gt;
+&lt;span class=&quot;meta&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;bash&quot;&gt; touch src/index.html&lt;/span&gt;
+&lt;span class=&quot;meta&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;bash&quot;&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;When we run &lt;code&gt;npm init&lt;/code&gt; the &lt;code&gt;package.json&lt;/code&gt; file gets created after asking few basic questions. 
 With this we have the basic file system ready.&lt;/p&gt;
 &lt;h3 id=&quot;watch&quot;&gt;Watch&lt;/h3&gt;
 &lt;p&gt;To watch the file system for changes we use the package called &lt;a href=&quot;https://github.com/paulmillr/chokidar&quot;&gt;Chokidar&lt;/a&gt;.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-shell&quot;&gt;$ npm install --save chokidar
-&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;meta&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;bash&quot;&gt; npm install --save chokidar&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This adds a dependency in &lt;code&gt;package.json&lt;/code&gt; along with installing it into &lt;code&gt;node_modules&lt;/code&gt;. 
 Create a build script to run our app. Lets call it &lt;code&gt;index.js&lt;/code&gt; . &lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-shell&quot;&gt;$touch index.js
-&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&quot;language-shell&quot;&gt;&lt;span class=&quot;meta&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;bash&quot;&gt;touch index.js&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;We can start using chokidar to watch files. &lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// index.js&lt;/span&gt;
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// index.js&lt;/span&gt;
 &lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; chokidar = &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'chokidar'&lt;/span&gt;);
 
 chokidar.watch(&lt;span class=&quot;string&quot;&gt;'./src/js/**/*.js'&lt;/span&gt;)
@@ -405,49 +390,43 @@ chokidar.watch(&lt;span class=&quot;string&quot;&gt;'./src/js/**/*.js'&lt;/span&
     })
   .on(&lt;span class=&quot;string&quot;&gt;'change'&lt;/span&gt;, (path)=&amp;gt; {
     &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;string&quot;&gt;'file changed '&lt;/span&gt;+path);
-  });
-&lt;/code&gt;&lt;/pre&gt;
+  });&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;With this tiny code we have established a watcher on our file system. &lt;code&gt;**/*.js&lt;/code&gt; matches all the files which end with .js in the particular file system ( /src/js in our case) . As we will not be using any other function of chokidar we can simplify the require statement a little : &lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; watch = &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'chokidar'&lt;/span&gt;).watch;
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; watch = &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'chokidar'&lt;/span&gt;).watch;
 
 watch(&lt;span class=&quot;string&quot;&gt;'./src/js/**/*.js'&lt;/span&gt;)
   .on(&lt;span class=&quot;string&quot;&gt;'add'&lt;/span&gt;,(path) =&amp;gt; {
-  ...
-&lt;/code&gt;&lt;/pre&gt;
+  ...&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&quot;read-write-to-files&quot;&gt;Read Write to files&lt;/h3&gt;
 &lt;p&gt;We can use default node apps to read and write to file system. But I found &lt;a href=&quot;https://github.com/shelljs/shelljs&quot;&gt;shelljs&lt;/a&gt; much easier to work with. With shelljs, the code is going to look exactly like shell but with functions instead of commands. Shelljs gives almost all important shell commands like cat, mkdir, echo etc ., 
 Two ways to use shelljs , if we import shelljs/global we can directly access all the shell command ( cat(file)) otherwise we need to call it with a variable (shell.cat(file)). I liked the global format so will go with it. &lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;$ npm install shelljs --save
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;update the index.js&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-js&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//index.js&lt;/span&gt;
+&lt;pre&gt;&lt;code&gt;$ npm install shelljs --save&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;update the index.js&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//index.js&lt;/span&gt;
 &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'shelljs/global'&lt;/span&gt;)
-echo(&lt;span class=&quot;string&quot;&gt;'echo test'&lt;/span&gt;);
-&lt;/code&gt;&lt;/pre&gt;
+echo(&lt;span class=&quot;string&quot;&gt;'echo test'&lt;/span&gt;);&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This should print the text to console . This is just to test if its working fine. &lt;/p&gt;
 &lt;h3 id=&quot;transpiler-for-es6&quot;&gt;Transpiler for ES6&lt;/h3&gt;
 &lt;p&gt;Assuming we will be writing our web app in ES6, we need to transpile the code to ES5. Lets use &lt;a href=&quot;http://vamshi-krishna.com/angular/articles/node-build/babeljs.io&quot;&gt;babeljs&lt;/a&gt; for this task. &lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;$ npm install --save babel babel-preset-es2015
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Lets convert some javascript from ES2015 to javscript 5&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-js&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//index.js&lt;/span&gt;
+&lt;pre&gt;&lt;code&gt;$ npm install --save babel babel-preset-es2015&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Lets convert some javascript from ES2015 to javscript 5&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//index.js&lt;/span&gt;
 &lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; babel = &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'babel-core'&lt;/span&gt;);
 &lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; presets = {
-  presets: [ &lt;span class=&quot;string&quot;&gt;'es2015'&lt;/span&gt;]
+  &lt;span class=&quot;attr&quot;&gt;presets&lt;/span&gt;: [ &lt;span class=&quot;string&quot;&gt;'es2015'&lt;/span&gt;]
 };
 &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;transpileToEs5&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;code&lt;/span&gt;)&lt;/span&gt;{
   &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; babel.transform(code, presets);
 }
-echo(transpileToEs5(&lt;span class=&quot;string&quot;&gt;`let a = 5;`&lt;/span&gt;));
-&lt;/code&gt;&lt;/pre&gt;
+echo(transpileToEs5(&lt;span class=&quot;string&quot;&gt;`let a = 5;`&lt;/span&gt;));&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This should output &lt;code&gt;var a = 5;&lt;/code&gt; to the output. &lt;/p&gt;
 &lt;h3 id=&quot;final-code&quot;&gt;Final code&lt;/h3&gt;
 &lt;p&gt;Lets combine all these to final code. &lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-js&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//index.js&lt;/span&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//index.js&lt;/span&gt;
 
 &lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; watch = &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'chokidar'&lt;/span&gt;).watch;
 &lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; babel = &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'babel-core'&lt;/span&gt;);
 &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'shelljs/global'&lt;/span&gt;);
 &lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; presets = {
-  presets: [ &lt;span class=&quot;string&quot;&gt;'es2015'&lt;/span&gt;]
+  &lt;span class=&quot;attr&quot;&gt;presets&lt;/span&gt;: [ &lt;span class=&quot;string&quot;&gt;'es2015'&lt;/span&gt;]
 };
 
 watch(&lt;span class=&quot;string&quot;&gt;'./src/js/**/*.js'&lt;/span&gt;)
@@ -479,8 +458,7 @@ watch(&lt;span class=&quot;string&quot;&gt;'./temp/**/*.js'&lt;/span&gt;)
 
 &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;transpileToEs5&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;code&lt;/span&gt;)&lt;/span&gt;{
   &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; babel.transform(code, presets);
-}
-&lt;/code&gt;&lt;/pre&gt;
+}&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Here we are watching on &lt;code&gt;src&lt;/code&gt; and &lt;code&gt;temp&lt;/code&gt;. Whevever there is a change in src, we compile and copy to temp. Whenever there is change or new file added to temp directory, we copy whole of temp again to site.js. 
 This is very basic code which can be further optimized a lot but left as is to make it easy to understand. 
 We can add more watchers and more logic in each watch. 
@@ -497,9 +475,9 @@ That is it. If we write code in our src , it automatically compiles and updates 
     </item>
     <item>
       <title>Service centric architecture in AngularJS</title>
-      <link>http://vamshi-krishna.com/angular/blog/articles/services/</link>
-      <pubDate>Sun, 05 Jun 2016 04:32:00 +0000</pubDate>
-      <guid isPermaLink="true">http://vamshi-krishna.com/angular/blog/articles/services/</guid>
+      <link>http://vamshi-krishna.com/angular/articles/services/</link>
+      <pubDate>Sun, 05 Jun 2016 10:02:00 +0630</pubDate>
+      <guid isPermaLink="true">http://vamshi-krishna.com/angular/articles/services/</guid>
       <author></author>
       <description>&lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;#summary&quot;&gt;Summary&lt;/a&gt;&lt;/li&gt;
@@ -581,7 +559,8 @@ That is it. If we write code in our src , it automatically compiles and updates 
 &lt;/ul&gt;
 &lt;h4 id=&quot;testing-is-easier-in-service&quot;&gt;Testing is easier in Service&lt;/h4&gt;
 &lt;ul&gt;
-&lt;li&gt;Simple functions, straight forward to test&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Simple functions, straight forward to test&lt;/p&gt;
+&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Enforce pure functions and test without any HTTP mocks&lt;/p&gt;
 &lt;iframe style=&quot;width: 100%; height: 330px&quot; src=&quot;http://embed.plnkr.co/LDH0yT&quot; frameborder=&quot;0&quot; allowfullscren=&quot;allowfullscren&quot;&gt;&lt;/iframe&gt;
 
@@ -605,7 +584,7 @@ That is it. If we write code in our src , it automatically compiles and updates 
 &lt;ul&gt;
 &lt;li&gt;Service contains the data with CRUD functions&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//file : model-service.js&lt;/span&gt;
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//file : model-service.js&lt;/span&gt;
 &lt;span class=&quot;comment&quot;&gt;//ModelService code&lt;/span&gt;
 
 &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; models = [];
@@ -624,11 +603,11 @@ That is it. If we write code in our src , it automatically compiles and updates 
 &lt;ul&gt;
 &lt;li&gt;Service provides functionality to let controllers register for a model change&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//file : model-service.js&lt;/span&gt;
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//file : model-service.js&lt;/span&gt;
 &lt;span class=&quot;comment&quot;&gt;//ModelService code&lt;/span&gt;
 self.observers = {
-  add: [],
-  update: []
+  &lt;span class=&quot;attr&quot;&gt;add&lt;/span&gt;: [],
+  &lt;span class=&quot;attr&quot;&gt;update&lt;/span&gt;: []
 };
 
 &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;addModel&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;model&lt;/span&gt;) &lt;/span&gt;{
@@ -638,19 +617,17 @@ self.observers = {
   self.observers.add.forEach(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;createObserver&lt;/span&gt;) &lt;/span&gt;{
     createObserver(model);
   });
-}
-&lt;/code&gt;&lt;/pre&gt;
+}&lt;/code&gt;&lt;/pre&gt;
 &lt;ul&gt;
 &lt;li&gt;All controllers interested to update the view based on data present in the service, register with the service to notify them when the model is added or updated&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//controller code&lt;/span&gt;
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//controller code&lt;/span&gt;
 &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; vm = &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;;
  vm.models = []; &lt;span class=&quot;comment&quot;&gt;//or $scope.models = [];&lt;/span&gt;
 
  ModelService.observers.add.push(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;addedModel&lt;/span&gt;)&lt;/span&gt;{
    vm.models.push(addedModel);
- });
-&lt;/code&gt;&lt;/pre&gt;
+ });&lt;/code&gt;&lt;/pre&gt;
 &lt;h4 id=&quot;advantages-solution-1-&quot;&gt;Advantages (Solution 1 )&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;All model related data resides in the service&lt;/li&gt;
@@ -662,7 +639,7 @@ self.observers = {
 &lt;p&gt;&lt;strong&gt;Problem 1:&lt;/strong&gt; Lots of boilerplate code. We need to add lot of code in each service. Observers for each method etc.,&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;:
  We can move all the boilerplate code to a single service and inject it to all the services. We can fetch the functions list and code to be executed after each function execution. In the following code we are appending post-execution code which will get appended to each function by default. &lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;
 &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;abc&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;a, b, c&lt;/span&gt;) &lt;/span&gt;{
   &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; a + b + c;
 }
@@ -676,29 +653,27 @@ abc = (&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;
 })(abc, &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;) &lt;/span&gt;{
   &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;string&quot;&gt;'executing all callbacks registered'&lt;/span&gt;); &lt;span class=&quot;comment&quot;&gt;//iterate over callbacks and execute them&lt;/span&gt;
 });
+
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Service code concedes to one line code&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;
 ModelService.$inject = [&lt;span class=&quot;string&quot;&gt;'ObserverService'&lt;/span&gt;];
 
 &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;ModelService&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;os&lt;/span&gt;) &lt;/span&gt;{
    os.wrap(self);
-   ...
-&lt;/code&gt;&lt;/pre&gt;
+   ...&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Controller code remains the same. A plnkr is provided at the end of section with full working example.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Problem 2 :&lt;/strong&gt; When we keep adding the controllers to service observers, they keep getting accumulated. We need to remove the controller when view is changed ( controller is inactive).&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt;
 we use &lt;code&gt;$destroy&lt;/code&gt; to remove the observer in the &lt;code&gt;ObserverService&lt;/code&gt; code.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;scope.$on(&lt;span class=&quot;string&quot;&gt;'$destroy'&lt;/span&gt;, &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;) &lt;/span&gt;{
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;scope.$on(&lt;span class=&quot;string&quot;&gt;'$destroy'&lt;/span&gt;, &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;) &lt;/span&gt;{
   &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;._observers.splice(addedIndex, &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;);
-});
-&lt;/code&gt;&lt;/pre&gt;
+});&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;For this we need to pass the &lt;code&gt;scope&lt;/code&gt; to the service. With this the controller code becomes :&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;ModelService.observe(&lt;span class=&quot;string&quot;&gt;'addModel'&lt;/span&gt;, $scope, &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;addedModel&lt;/span&gt;) &lt;/span&gt;{
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;ModelService.observe(&lt;span class=&quot;string&quot;&gt;'addModel'&lt;/span&gt;, $scope, &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;addedModel&lt;/span&gt;) &lt;/span&gt;{
   vm.models.push(addedModel);
-});
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;strong&gt; Problem 3: &lt;/strong&gt; Even while using &lt;code&gt;Controller As&lt;/code&gt; syntax, we still need to inject $scope. And the controller is still populated with code related to observer. For each method of service, we need to add an observer method. But probably this is fine considering the advantages we get. We can check the second solution if that makes better sense.&lt;/p&gt;
+});&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;** Problem 3: ** Even while using &lt;code&gt;Controller As&lt;/code&gt; syntax, we still need to inject $scope. And the controller is still populated with code related to observer. For each method of service, we need to add an observer method. But probably this is fine considering the advantages we get. We can check the second solution if that makes better sense.&lt;/p&gt;
 &lt;p&gt;Before that , summarizing all the changes, the example is shown in the following plunkr. When we add a model in a controller , it gets updated in other controllers:&lt;/p&gt;
 &lt;iframe style=&quot;width: 100%; height: 400px&quot; src=&quot;http://embed.plnkr.co/JCHWMaUyR66YqO66WN83&quot; frameborder=&quot;0&quot; allowfullscren=&quot;allowfullscren&quot;&gt;&lt;/iframe&gt;
 
@@ -707,7 +682,7 @@ we use &lt;code&gt;$destroy&lt;/code&gt; to remove the observer in the &lt;code&
 &lt;ul&gt;
 &lt;li&gt;Service code remains same as Solution 1&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//file : model-service.js&lt;/span&gt;
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//file : model-service.js&lt;/span&gt;
 &lt;span class=&quot;comment&quot;&gt;//ModelService code&lt;/span&gt;
 
 &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; models = [];
@@ -727,7 +702,7 @@ we use &lt;code&gt;$destroy&lt;/code&gt; to remove the observer in the &lt;code&
 &lt;li&gt;Append the read methods of the service directly to the view, so it can access
   directly&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//Controller code &lt;/span&gt;
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//Controller code &lt;/span&gt;
 &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; model = &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;; 
 model.getAllModels = ModelService.getAllModels;
 model.getModel = ModelService.getModel;
@@ -735,12 +710,11 @@ model.getModel = ModelService.getModel;
 &lt;ul&gt;
 &lt;li&gt;View is going to look like this:&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-html&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;ng-controller&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;ModelController as model&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;pre&gt;&lt;code class=&quot;language-html&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;ng-controller&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;ModelController as model&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;
   &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;ng-repeat&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;model in model.getAllModels()&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;
     ...
   &lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;As we are directly calling the service methods in the view, when the data changes
 in the service, the view knows it and automatically updates the html
 accordingly. This is possible because angular adds the function to watchers
@@ -748,7 +722,7 @@ list and keeps checking if the returned data of the function changed. &lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Updating the model data is done using the regular controller to service calls&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//Controlle code &lt;/span&gt;
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//Controlle code &lt;/span&gt;
 
 &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; vm = &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;;
 
@@ -770,34 +744,32 @@ these additional advantages: &lt;/p&gt;
   played around&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4 id=&quot;problems-solution-2-&quot;&gt;Problems ( Solution 2)&lt;/h4&gt;
-&lt;p&gt;&lt;strong&gt; Problem 1 &lt;/strong&gt; : ( very important) Watchers cause infinite http calls. 
+&lt;p&gt;** Problem 1 ** : ( very important) Watchers cause infinite http calls. 
 This is probably only reason why this method should not be used without
 understanding how it works. Imagine a code like this : &lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//ModelService code &lt;/span&gt;
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//ModelService code &lt;/span&gt;
 
 &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.getAllModels = &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;{
   $http.get(&lt;span class=&quot;string&quot;&gt;'...'&lt;/span&gt;).then(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;response&lt;/span&gt;)&lt;/span&gt;{
     models = response.data;
   })
-}
-&lt;/code&gt;&lt;/pre&gt;
+}&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;When this method is directly accessed in view, it is by default added to
 watcher and for every single event this method gets called and we get infinite
 http calls. Ofcourse this is true even if we are using the regular controller
 method in the view like this : &lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//controller code &lt;/span&gt;
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//controller code &lt;/span&gt;
 &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; vm = &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;;
 vm.getModels = &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;{
   &lt;span class=&quot;comment&quot;&gt;// service code which does http call&lt;/span&gt;
 }
 &lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-html&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&amp;lt;!-- View code--&amp;gt;&lt;/span&gt;
+&lt;pre&gt;&lt;code class=&quot;language-html&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&amp;lt;!-- View code--&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;ng-repeat&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;modl in vm.getModels()&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Angular prevents this by giving an error but still its a crime to attach a
 function which does http call to the view. &lt;/p&gt;
-&lt;p&gt;&lt;strong&gt; Solution &lt;/strong&gt; : 
+&lt;p&gt;** Solution ** : 
 Before jumping to solution, lets see why this scenario occurs. Initially the service do not have any models. So, we need to do either of : &lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Call HTTP call when service loads &lt;/li&gt;
@@ -806,7 +778,7 @@ Before jumping to solution, lets see why this scenario occurs. Initially the ser
 &lt;p&gt;First solution is not feasible as we will be loading too much data even if its
 not needed. Second way causes the problem we are discussing now. 
 We can fix this by adding a condition in our get call. &lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.getModels = &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;{
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.getModels = &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;{
   &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(!models || !models.length){
     $http.get(url)
          .then(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;res&lt;/span&gt;)&lt;/span&gt;{
@@ -814,12 +786,11 @@ We can fix this by adding a condition in our get call. &lt;/p&gt;
           });
   }
   &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; models;
-};
-&lt;/code&gt;&lt;/pre&gt;
+};&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This again causes similar issue, when we call this twice in succession, it does
 another http call when a call is already in progress. So we add another check
 for promise. &lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; getModelsPromise ;
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; getModelsPromise ;
 &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.getModels = &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;{
   &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(!models || !models.length){
     &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(!getModelPromise){
@@ -830,8 +801,7 @@ for promise. &lt;/p&gt;
     }
   }
   &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; models;
-};
-&lt;/code&gt;&lt;/pre&gt;
+};&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The above promise can be used in some other method too if needed. So that even
 if multiple service calls need the same http call, we are only creating one
 promise.
@@ -841,7 +811,7 @@ Solution 1 . &lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Problem 2&lt;/strong&gt; : Data is not sync with database. &lt;/p&gt;
 &lt;p&gt;We fetched data intially once and we are updating the model data in service
 only when someone does a add or update call . &lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; models = [];
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; models = [];
 &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; getModelsPromise ;
 &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.getModels = &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;{
   ...
@@ -853,8 +823,7 @@ only when someone does a add or update call . &lt;/p&gt;
     .then(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;{
       models.push(model);
     });
-}
-&lt;/code&gt;&lt;/pre&gt;
+}&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Only when one of the controller/component calls the addModel we are updating
 our models with new model. What happens when some other user who added a model
 to the database which, our model service is not aware of ? There is a sync
@@ -866,12 +835,12 @@ issue that arises.&lt;/p&gt;
 &lt;li&gt;Have a socketio connection, which updates the service whenever there is a
   data change in the backend&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt; Problem 3 &lt;/strong&gt;: Too much data in memory&lt;/p&gt;
+&lt;p&gt;** Problem 3 **: Too much data in memory&lt;/p&gt;
 &lt;p&gt;In case the model list is too high or there are lots of services. The memory
 usage might get too large. &lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Solution&lt;/strong&gt; : To fix this issue we can use session storage to
 store the data.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; getModelsPromise ;
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; getModelsPromise ;
 &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.getModels = &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;{
   &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; models = sessionStorage.getItem(&lt;span class=&quot;string&quot;&gt;'models'&lt;/span&gt;);
   &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(!models || !models.length){
@@ -892,8 +861,7 @@ store the data.&lt;/p&gt;
       models.push(model);
       sessionStorage.setItem(&lt;span class=&quot;string&quot;&gt;'models'&lt;/span&gt;,models);
     });
-}
-&lt;/code&gt;&lt;/pre&gt;
+}&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&quot;conclusion-&quot;&gt;Conclusion :&lt;/h3&gt;
 &lt;p&gt;For very simple app, the usual Controller-centric way of coding is good. But in
 case of complex apps, its always good to be more modular and keep the
@@ -903,9 +871,9 @@ the problems with workarounds mentioned above. &lt;/p&gt;
     </item>
     <item>
       <title>Testing private functions in Angular</title>
-      <link>http://vamshi-krishna.com/angular/blog/articles/test-private/</link>
-      <pubDate>Thu, 05 May 2016 00:00:00 +0000</pubDate>
-      <guid isPermaLink="true">http://vamshi-krishna.com/angular/blog/articles/test-private/</guid>
+      <link>http://vamshi-krishna.com/angular/articles/test-private/</link>
+      <pubDate>Thu, 05 May 2016 05:30:00 +0630</pubDate>
+      <guid isPermaLink="true">http://vamshi-krishna.com/angular/articles/test-private/</guid>
       <author></author>
       <description>&lt;blockquote&gt;
 &lt;p&gt;This is a workaround. There is no framework support.&lt;/p&gt;
@@ -913,7 +881,7 @@ the problems with workarounds mentioned above. &lt;/p&gt;
 &lt;p&gt;tl;dr : &lt;a href=&quot;https://plnkr.co/edit/EGOOTDBUSuPltHDvEEKx?p=preview&quot;&gt;plnkr.co/edit/EGOOTDBUSuPltHDvEEKx&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;AngularJS by default is a very test friendly framework. For someone who is eager to try functional programming, these days I am writing a lot of tiny private functions and I want to test them independently. Ofcourse this is not possible with the current Angular framework. To overcome this problem I tried a work around and this blog is about that.&lt;/p&gt;
 &lt;p&gt;Lets start with a simple example:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-js&quot;&gt;angular.module(&lt;span class=&quot;string&quot;&gt;'app'&lt;/span&gt;,[])
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;angular.module(&lt;span class=&quot;string&quot;&gt;'app'&lt;/span&gt;,[])
   .service(&lt;span class=&quot;string&quot;&gt;'Service1'&lt;/span&gt;,Service1);
 
 &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;Service1&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;{
@@ -923,10 +891,9 @@ the problems with workarounds mentioned above. &lt;/p&gt;
   &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;sum&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;num1, num2&lt;/span&gt;)&lt;/span&gt;{
     &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; num1+num2;
   }
-}
-&lt;/code&gt;&lt;/pre&gt;
+}&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;I am not interested to test &lt;code&gt;getMessage&lt;/code&gt; . I only want to test &lt;code&gt;sum&lt;/code&gt; as that is where all the logic happening. My unit test file looks like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-js&quot;&gt;describe(&lt;span class=&quot;string&quot;&gt;'main tests'&lt;/span&gt;,tests);
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;describe(&lt;span class=&quot;string&quot;&gt;'main tests'&lt;/span&gt;,tests);
 &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;tests&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;{
   &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; service;
   beforeEach(&lt;span class=&quot;built_in&quot;&gt;module&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'app'&lt;/span&gt;));
@@ -937,11 +904,10 @@ the problems with workarounds mentioned above. &lt;/p&gt;
   it(&lt;span class=&quot;string&quot;&gt;&quot;should return the sum&quot;&lt;/span&gt;,&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;{
     expect(service.sum(&lt;span class=&quot;number&quot;&gt;4&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;5&lt;/span&gt;)).toBe(&lt;span class=&quot;number&quot;&gt;9&lt;/span&gt;);
   });
-}
-&lt;/code&gt;&lt;/pre&gt;
+}&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;I want to get this working. But it gives error.&lt;/p&gt;
 &lt;p&gt;To get this working, I added another service which always gives &lt;code&gt;false&lt;/code&gt; for &lt;code&gt;testEnabled&lt;/code&gt; value. In general case, we never touch it, but we will set it to &lt;code&gt;true&lt;/code&gt; during testing. This way we can convert private functions to public during test and leave them private in general cases.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-js&quot;&gt;angular.module(&lt;span class=&quot;string&quot;&gt;'app'&lt;/span&gt;,[])
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;angular.module(&lt;span class=&quot;string&quot;&gt;'app'&lt;/span&gt;,[])
   .service(&lt;span class=&quot;string&quot;&gt;'Service1'&lt;/span&gt;,Service1)
   .service(&lt;span class=&quot;string&quot;&gt;'Service2'&lt;/span&gt;,Service2);
 
@@ -958,10 +924,9 @@ the problems with workarounds mentioned above. &lt;/p&gt;
   &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(Service2.testEnabled){
     &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.sum = sum;
   }
-}
-&lt;/code&gt;&lt;/pre&gt;
+}&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now we can continue with unit tests.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-js&quot;&gt;angular.module(&lt;span class=&quot;string&quot;&gt;'app'&lt;/span&gt;,[])
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;angular.module(&lt;span class=&quot;string&quot;&gt;'app'&lt;/span&gt;,[])
   .service(&lt;span class=&quot;string&quot;&gt;'Service1'&lt;/span&gt;,Service1)
   .service(&lt;span class=&quot;string&quot;&gt;'Service2'&lt;/span&gt;,Service2);
 
@@ -981,8 +946,7 @@ describe(&lt;span class=&quot;string&quot;&gt;'main tests'&lt;/span&gt;,tests);
   it(&lt;span class=&quot;string&quot;&gt;&quot;should return the name&quot;&lt;/span&gt;,&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;{
     expect(service.sum(&lt;span class=&quot;number&quot;&gt;4&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;5&lt;/span&gt;)).toBe(&lt;span class=&quot;number&quot;&gt;9&lt;/span&gt;);
   });
-}
-&lt;/code&gt;&lt;/pre&gt;
+}&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Works great !!&lt;/p&gt;
 &lt;p&gt;The same can be used for private functions in Controllers too.&lt;/p&gt;
 </description>
