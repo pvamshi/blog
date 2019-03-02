@@ -11,7 +11,7 @@ jobs:
       # - run: bundle install --path vendor/bundle
 
       # Database setup
-      - run: npx build
+      - run: npm run build
 
       #- run:
       #    name: Run tests
@@ -29,7 +29,7 @@ jobs:
       #     name: Setup Heroku
       #     command: bash .circleci/setup-heroku.sh
 
-      - run: npx deploy
+      - run: npm run deploy
 
 workflows:
   version: 2
