@@ -1,8 +1,8 @@
 ---
 title: Project building using node
-author: Vamshi Krishna
+author: vamshi
 date: 2016-07-06 18:02:00 +05:30
-template: article.jade
+template: article.pug
 comments: true
 ---
 ### Introduction

@@ -3,7 +3,7 @@
     "url": "http://vamshi-krishna.com/angular",
     "name": "Frontend Development",
     "owner": "Vamshi Krishna",
-    "description": "Blogs on web development",
+    "description": "console.log(me); // ['Javascript', 'Angular', 'React']",
     "comment_email": "pvamshi@gmail.com"
   },
   "plugins": [
@@ -14,15 +14,14 @@
     "_": "underscore",
     "typogr": "typogr"
   },
-  "jade": {
+  "pug": {
     "pretty": true
   },
-  "output":"..",
-  "baseUrl":"/blog",
   "markdown": {
     "smartLists": true,
     "smartypants": true
   },
   "paginator": {
-    "perPage": 3
-  }}
+    "perPage": 5
+  }
+}

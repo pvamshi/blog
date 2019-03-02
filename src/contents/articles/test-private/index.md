@@ -2,7 +2,7 @@
 title: Testing private functions in Angular
 author: Vamshi Krishna
 date: 2016-05-05
-template: article.jade
+template: article.pug
 comments: true
 ---
 

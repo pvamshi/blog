@@ -1,0 +1,28 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "Vamshi blog",
+  "main": "index.js",
+  "scripts": {
+    "start": "wintersmith preview -C src",
+    "build": "wintersmith build -C src -o dist",
+    "deploy": "gh-pages -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pvamshi/blog.git"
+  },
+  "keywords": [
+    "blog"
+  ],
+  "author": "Vamshi Krishna Pothuka",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pvamshi/blog/issues"
+  },
+  "homepage": "https://github.com/pvamshi/blog#readme",
+  "devDependencies": {
+    "gh-pages": "^2.0.1",
+    "wintersmith": "^2.5.0"
+  }
+}
