@@ -1,14 +1,12 @@
 {
   "locals": {
-    "url": "http://vamshi-krishna.com/angular",
+    "url": "http://vamshikrishna.dev",
     "name": "Frontend Development",
     "owner": "Vamshi Krishna",
     "description": "console.log(me); // ['Javascript', 'Angular', 'React']",
     "comment_email": "pvamshi@gmail.com"
   },
-  "plugins": [
-    "./plugins/paginator.coffee"
-  ],
+  "plugins": ["./plugins/paginator.coffee"],
   "require": {
     "moment": "moment",
     "_": "underscore",
