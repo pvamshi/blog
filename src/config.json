@@ -3,7 +3,7 @@
     "url": "http://vamshikrishna.dev",
     "name": "Frontend Development",
     "owner": "Vamshi Krishna",
-    "description": "console.log(me); // ['Javascript', 'Angular', 'React']",
+    "description": "console.log(me); // [ 'Javascript', 'Angular', 'React' ]",
     "comment_email": "pvamshi@gmail.com"
   },
   "plugins": ["./plugins/paginator.coffee"],
